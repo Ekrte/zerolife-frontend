@@ -123,9 +123,11 @@ const Mission = styled.div`
 	}
 `;
 
-const MOCK_NOTIFICATIONS = [
-	{ title: "hello", text: "world", createdAt: new Date() },
-];
+declare global {
+	interface Window {
+		ReactNativeWebView: any
+	}
+}
 
 
 function MyPage() {

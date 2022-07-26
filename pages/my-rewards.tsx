@@ -7,7 +7,7 @@ import isLoggedIn from "../hooks/isLoggedIn";
 function MyRewards() {
 	isLoggedIn();
 	const router = useRouter();
-	const { animate, state } = router.query
+	const { animate, state } = router.query;
 
 	return (
 		<PageContainer>
@@ -17,7 +17,7 @@ function MyRewards() {
 					onBack={() => history.back()}
 				/>
 			</StickyHeader>
-			<MyRewardsSection animate={parseInt(animate)} state={parseInt(state)} />
+			<MyRewardsSection animate={parseInt(animate as string)} state={parseInt(state as string)} />
 		</PageContainer>
 	);
 }

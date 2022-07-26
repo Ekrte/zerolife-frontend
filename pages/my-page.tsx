@@ -9,7 +9,7 @@ import MissionStatusSection from "../components/my-page/MissionStatusSection";
 import isLoggedIn from "../hooks/isLoggedIn";
 import { useEffect, useState } from "react";
 import getMyRewards from "../apis/getMyRewards";
-import getMyInfo from "../apis/getMyInfo";
+import getMyInfo, { RewardType } from "../apis/getMyInfo";
 
 const Title = styled.div`
 	font-size: 24px;
@@ -55,7 +55,7 @@ function MyPage() {
 	isLoggedIn();
 	//apis/users/achieved-rewards
 	const [ state, setState ] = useState(0);
-	const [ myInfo, setMyInfo ] = useState({});
+	const [ myInfo, setMyInfo ] = useState<RewardType | undefined>();
 
 	useEffect(() => {
 		getMyRewards((data) => {
@@ -79,9 +79,9 @@ function MyPage() {
 				<Image src={AvatarImage} alt="avatar Image" />
 				<AvatarName>{myInfo?.user?.nickname ?? "김지구"}</AvatarName>
 			</AvatarSection>
-			<MissionStatusSection 
+			{myInfo && <MissionStatusSection 
 				{...myInfo?.missionState}
-			/>
+			/>}
 			<JoinedMissionSection>
 				<Link href="/complete-missions">참여한 인증 보기</Link>
 			</JoinedMissionSection>
