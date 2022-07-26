@@ -2,10 +2,15 @@ import axios, { AxiosResponse } from "axios";
 
 const BACKEND_URL = "http://118.67.128.237";
 
-const getMyRewards = (callbackFn: (rewards: { id: number }[]) => void) => {
+interface RewardType {
+	id: number, 
+	isAchieved: boolean
+}
+
+const getMyRewards = (callbackFn: (rewards: RewardType[]) => void) => {
     axios
 		.get(`${BACKEND_URL}/apis/users/achieved-rewards`)
-		.then((response: AxiosResponse<{ id: number }[]>) => callbackFn(response.data))
+		.then((response: AxiosResponse<RewardType[]>) => callbackFn(response.data))
 		.catch((err) => {
 			console.error(err);
 		})

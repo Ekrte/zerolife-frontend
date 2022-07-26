@@ -59,7 +59,7 @@ function MyPage() {
 
 	useEffect(() => {
 		getMyRewards((data) => {
-			const lastRewardState = data.reduce((a, b) => a.id > b.id ? a : b)
+			const lastRewardState = data.filter(e => e.isAchieved).reduce((a, b) => a.id > b.id ? a : b)
 			setState(lastRewardState.id);
 		});
 		getMyInfo((data) => setMyInfo(data));
