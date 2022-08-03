@@ -1,0 +1,21 @@
+<svg fill="none" width="344" height="604" viewBox="0 0 304 604" xmlns="http://www.w3.org/2000/svg">
+    <path
+        stroke="#817F8A"
+        stroke-dasharray="22 10"
+        stroke-width="3px"
+        d="M 260 2 
+            h -218
+            c -80 0, -80 100, 0 100
+            h 218
+            c 80 0, 80 100, 0 100
+            h -218
+            c -80 0, -80 100, 0 100
+            h 218
+            c 80 0, 80 100, 0 100
+            h -218
+            c -80 0, -80 100, 0 100
+            h 218
+            c 80 0, 80 100, 0 100
+            "
+    />
+</svg>
