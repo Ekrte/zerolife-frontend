@@ -1,10 +1,10 @@
-import type { NextPage } from "next";
+import type { NextPage, GetServerSideProps  } from "next";
 
 const Home: NextPage = () => {
 	return <></>;
 };
 
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
 	return {
 		redirect: {
 			permanent: false,
