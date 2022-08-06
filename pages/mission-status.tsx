@@ -152,7 +152,7 @@ const ContinueImage = (props: { handleClick: any }) => {
 			{typeof window !== 'undefined' && ReactDOM.createPortal(
 				<ContinueButton 
 					className="mission-continue" 
-					onClick={() => { console.log("2314"); props.handleClick(); }}
+					onClick={props.handleClick}
 				>
 					<span>comming soon</span>
 					<div className="scroll-up-button">
@@ -182,7 +182,6 @@ function MissionStatus() {
 					for(let i = 0; i < data.length / 6; i++) {
 						chunks.push(data.slice(i * 6, i * 6 + 6));
 					}
-					console.log(chunks);
 					setMissionProgress(chunks);
 				});
 				bottomRef.current?.scrollIntoView({behavior: 'smooth'});
@@ -198,24 +197,28 @@ function MissionStatus() {
 				<Title>미션 현황</Title>
 			</Header>
 			<Content id="mission-status-content">
-				<div className="top" style={{ marginBottom: 20 }} ref={contentTopRef}/>
-				<StartImage/>
-				{missionProgress.map(missionChunk => 
-					<MissionGroup 
-						key={missionChunk.reduce((a, b) => a + b.missionProgressId.toString(), "")}
-						missionInfos={missionChunk} 
-					/>
-				)}
-				{missionProgress.length === 10 
-					? <EndImage/> 
-					: <ContinueImage 
-						handleClick={() => { 
-							rootTopRef?.current?.scrollIntoView({ behavior: "auto", block: "start", inline: "start" })
-							contentTopRef?.current?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" })
-						}}
-					/>
+				{missionProgress.length && 
+					<>
+						<div className="top" style={{ marginBottom: 20 }} ref={contentTopRef}/>
+						<StartImage/>
+						{missionProgress.map(missionChunk => 
+							<MissionGroup 
+								key={missionChunk.reduce((a, b) => a + b.missionProgressId.toString(), "")}
+								missionInfos={missionChunk} 
+							/>
+						)}
+						{missionProgress.length === 10 
+							? <EndImage/> 
+							: <ContinueImage 
+								handleClick={() => { 
+									rootTopRef?.current?.scrollIntoView({ behavior: "auto", block: "start", inline: "start" })
+									contentTopRef?.current?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" })
+								}}
+							/>
+						}
+						<div className="bottom" ref={bottomRef}/>
+					</>
 				}
-				<div className="bottom" ref={bottomRef}/>
 			</Content>
 		</DefaultLayout>
 	);
