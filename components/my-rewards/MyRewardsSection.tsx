@@ -78,7 +78,7 @@ function MyRewardsSection({ state, animate }: MyRewardsProps) {
 	return (
         <Container show={show}>
             <div className="image-container prev">
-                {state - 1 > 0 && animate && <Image src={`/image/rewards/${state - 1}.png`} alt="prev" layout='fill' />}
+                {animate && <Image src={`/image/rewards/${state - 1}.png`} alt="prev" layout='fill' />}
             </div>
             <div className="image-container current">
                 <Image src={`/image/rewards/${state}.png`} alt="current" layout='fill' />

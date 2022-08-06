@@ -22,7 +22,7 @@ function MyRewards() {
 			<StickyHeader>
 				<BackHeader
 					title="내 리워드 보기"
-					onBack={() => history.back()}
+					onBack={() => location.assign('/my-page')}
 				/>
 			</StickyHeader>
 			<MyRewardsSection animate={parseInt(animate as string)} state={parseInt(state as string)} />
