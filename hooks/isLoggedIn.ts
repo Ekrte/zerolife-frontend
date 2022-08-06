@@ -2,7 +2,7 @@ import axios from "axios";
 
 const dummyJwtToken = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJuaWNrbmFtZSI6InRlc3QwMDQiLCJpZCI6NCwiZW1haWwiOiJ0ZXN0MDA0QGdtYWlsLmNvbSIsImlzcyI6Inplcm9saWZlIiwiZXhwIjoxNjU5OTc3MTM4fQ.c1OlWSQgk9NNeWU_WPL85Yvbq0KInt-349OBP24n5M2h-6ENBr4VDmt8Y46vch5BMWrUJRXtwa1sgOTDl2QoJw';
 
-const isLoggedIn = () => {
+const isLoggedIn = async () => {
 	if (typeof window === 'undefined') return "";
 	const user = localStorage.getItem('user');
 	const BACKEND_URL = "http://118.67.128.237";
@@ -19,16 +19,19 @@ const isLoggedIn = () => {
 	// 	.catch((err) => {
 	// 		console.error(err);
 	// 	})
-	// axios
-	// 	.post(`http://118.67.128.237/apis/auth/token`, 
-	// 		{ 
-	// 			email: "test004@gmail.com", 
-	// 			password: "abc123123",
-	// 		})
-	// 	.then((response: any) => console.log(response.data))
-	// 	.catch((err) => {
-	// 		console.error(err);
-	// 	})
+	await axios
+		.post(`http://118.67.128.237/apis/auth/token`, 
+			{ 
+				email: "test004@gmail.com", 
+				password: "abc123123",
+			})
+		.then((response: any) => {
+			console.log(response.data.accessToken);
+			axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`;
+		})
+		.catch((err) => {
+			console.error(err);
+		})
 	
 	// if(user) {
 	// 	const { id, jwtToken } = JSON.parse(user);
@@ -48,7 +51,6 @@ const isLoggedIn = () => {
 	// 		location.assign('/splash'); // go to login page
 	// 	})
 	// }
-	axios.defaults.headers.common['Authorization'] = dummyJwtToken;
 }
 
 export default isLoggedIn;

@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import styled, { useTheme } from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import isLoggedIn from "../hooks/isLoggedIn";
 import CheckboxMessage from "../components/consent/CheckboxMessage";
@@ -97,9 +97,19 @@ const agreementItems = [
 ];
 
 const Consent: NextPage = () => {
-    const id = isLoggedIn();
     const [agreementList, setAgreementList] = useState<string[]>([]);
     const theme = useTheme();
+
+    useEffect(() => {
+        async function initPage() {
+			try {
+				await isLoggedIn();
+			} finally {
+                
+			}
+		}
+		initPage()
+    }, [])
     
 	return (
         <PageContainer className="page-container">

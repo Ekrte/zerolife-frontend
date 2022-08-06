@@ -3,9 +3,17 @@ import { PageContainer } from "../layouts";
 import MyRewardsSection from "../components/my-rewards/MyRewardsSection";
 import { useRouter } from "next/router";
 import isLoggedIn from "../hooks/isLoggedIn";
+import { useEffect } from "react";
 
 function MyRewards() {
-	isLoggedIn();
+	useEffect(() => {
+		async function initPage() {
+			try {
+				await isLoggedIn();
+			} finally {}
+		}
+		initPage()
+	}, []);
 	const router = useRouter();
 	const { animate, state } = router.query;
 

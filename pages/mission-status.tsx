@@ -100,6 +100,7 @@ const ContinueButton = styled.div`
 	align-items: center;
 	width: 100vw;
 	height: 45px;
+	z-index: 5;
 	bottom: -44px;
 	
 	background: rgba(178, 177, 186, 0.5);
@@ -165,29 +166,29 @@ const ContinueImage = (props: { handleClick: any }) => {
 }
 
 function MissionStatus() {
-	isLoggedIn();
 	const [ missionProgress, setMissionProgress ] = useState<MissionInfo[][]>([]);
 	const rootTopRef = useRef<HTMLDivElement>(null);
 	const contentTopRef = useRef<HTMLDivElement>(null);
 	const bottomRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		getMissionProgress((data) => {
-			let chunks = [];
-			for(let i = 0; i < data.length / 6; i++) {
-				chunks.push(data.slice(i * 6, i * 6 + 6));
+		async function initPage() {
+			try {
+				await isLoggedIn();
+				await new Promise(resolve => setTimeout(resolve, 500));
+			} finally {
+				getMissionProgress((data) => {
+					let chunks = [];
+					for(let i = 0; i < data.length / 6; i++) {
+						chunks.push(data.slice(i * 6, i * 6 + 6));
+					}
+					console.log(chunks);
+					setMissionProgress(chunks);
+				});
+				bottomRef.current?.scrollIntoView({behavior: 'smooth'});
 			}
-			setMissionProgress(chunks);
-		});
-
-		async function waitRender() {
-		try {
-			await new Promise(resolve => setTimeout(resolve, 500));
-		} finally {
-			bottomRef.current?.scrollIntoView({behavior: 'smooth'});
 		}
-		}
-		waitRender();
+		initPage();
 	}, []);
 	
 	return (
@@ -209,7 +210,6 @@ function MissionStatus() {
 					? <EndImage/> 
 					: <ContinueImage 
 						handleClick={() => { 
-							console.log("hello");
 							rootTopRef?.current?.scrollIntoView({ behavior: "auto", block: "start", inline: "start" })
 							contentTopRef?.current?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" })
 						}}

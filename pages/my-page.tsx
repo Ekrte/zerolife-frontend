@@ -52,17 +52,23 @@ const MyRewardSection = styled.section`
 `;
 
 function MyPage() {
-	isLoggedIn();
 	//apis/users/achieved-rewards
 	const [ state, setState ] = useState(0);
 	const [ myInfo, setMyInfo ] = useState<RewardType | undefined>();
 
 	useEffect(() => {
-		getMyRewards((data) => {
-			const lastRewardState = data.filter(e => e.isAchieved).reduce((a, b) => a.id > b.id ? a : b)
-			setState(lastRewardState.id);
-		});
-		getMyInfo((data) => setMyInfo(data));
+		async function initPage() {
+			try {
+				await isLoggedIn();
+			} finally {
+				getMyRewards((data) => {
+					const lastRewardState = data.filter(e => e.isAchieved).reduce((a, b) => a.id > b.id ? a : b)
+					setState(lastRewardState.id);
+				});
+				getMyInfo((data) => setMyInfo(data));
+			}
+		}
+		initPage()
 	}, []);
 	
 	return (

@@ -7,14 +7,20 @@ import CompleteMissionSection, { MissionType } from "../components/complete-miss
 import getCompleteMissions from "../apis/getCompleteMissions";
 
 function CompleteMissions() {
-	isLoggedIn();
 	const router = useRouter();
 	const [ missions, setMissions ] = useState<MissionType[]>([]);
 
 	useEffect(() => {
-		getCompleteMissions((data: any) => {
-			setMissions(data)
-		});
+		async function initPage() {
+			try {
+				await isLoggedIn();
+			} finally {
+				getCompleteMissions((data: any) => {
+					setMissions(data)
+				});
+			}
+		}
+		initPage()
 	}, []);
 
 	return (

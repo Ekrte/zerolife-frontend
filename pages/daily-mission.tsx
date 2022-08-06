@@ -132,7 +132,6 @@ declare global {
 
 function MyPage() {
 	const theme = useTheme();
-	isLoggedIn();
 	const [ showNotification, setShowNotification ] = useState(false);
 	const [ showMissionModal, setShowMissionModal ] = useState(false);
 	const [ rewardId, setRewardId ] = useState(0);
@@ -162,6 +161,15 @@ function MyPage() {
 	};
 	
 	useEffect(() => {
+		async function initPage() {
+			try {
+				await isLoggedIn();
+			} finally {
+				getDailyMission(getMissionCallback);
+			}
+		}
+		initPage();
+
 		updateRemainingTime();
 		setInterval(updateRemainingTime, 1000);
 
@@ -177,8 +185,6 @@ function MyPage() {
 			/** ios */
 			window.addEventListener("message", listener);
 		}
-
-		getDailyMission(getMissionCallback);
 
 		return () => {
 			if (window.ReactNativeWebView) {
