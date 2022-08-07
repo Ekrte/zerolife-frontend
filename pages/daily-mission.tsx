@@ -25,7 +25,7 @@ const Title = styled.div`
 `;
 
 const Content = styled.section`
-	padding: 0px 21px;
+	padding: 32px 21px;
 	display: flex;
 	flex-direction: column;
 	flex: 1;
