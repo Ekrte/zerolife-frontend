@@ -18,10 +18,9 @@ const MissionCardContainer = styled.div`
 	display: flex;
 	position: relative;
 	flex-direction: column;
-	width: 330px;???
+	width: 330px;
 	border: 1px dashed ${({ theme }) => theme.colors.gray2};
 	border-radius: 10px;
-	flex: 1;
 	align-items: center;
 	justify-content: center;
 	box-sizing: border-box;
@@ -69,6 +68,7 @@ const MissionCardContainer = styled.div`
 		font-size: 20px;
 		line-height: 1.5;
 		color: white;
+		text-align: center;
 	}
 
 	.mission-completed-time {

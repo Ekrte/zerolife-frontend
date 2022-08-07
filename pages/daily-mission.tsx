@@ -15,6 +15,7 @@ import getDailyMission from "../apis/getDailyMission";
 import RewardModalContent from "../components/RewardModalContent";
 import MyRewardsSection from "../components/my-rewards/MyRewardsSection";
 import isLoggedIn from "../hooks/isLoggedIn";
+import { stringify } from "querystring";
 
 const Title = styled.div`
 	font-size: 24px;
@@ -95,6 +96,7 @@ const Mission = styled.div`
 		font-size: 24px;
 		line-height: 29px;
 		color: white;
+		text-align: center;
 		margin-bottom: 4px;
 	}
 
@@ -137,7 +139,17 @@ function MyPage() {
 	const [ rewardId, setRewardId ] = useState(0);
 	
 	const [ encodedImage, setEncodedImage ] = useState("");
-	const [ mission, setMission ] = useState<{ mission?: any, missionProgress?: any, daysOfProgress?: any}>({});
+	const [ mission, setMission ] = useState<{ 
+		mission?: {
+			category: string,
+			description: string,
+			guideImageUrl: string,
+			method: string,
+			title: string
+		}, 
+		missionProgress?: any, 
+		daysOfProgress?: any
+	}>({});
 	const [ remainingTime, setRemainingTime ] = useState("");
 	const [ missionIconPath, setMissionIconPath ] = useState("/image/today/defaultIcon.svg");
 
@@ -197,7 +209,13 @@ function MyPage() {
 	const sendCaptureRequest = () => {
 		if (window.ReactNativeWebView) {
 			if(mission.missionProgress.isCompleted) return;
-			window.ReactNativeWebView.postMessage(JSON.stringify({ type: "REQ_CAMERA_PERMISSION"}));
+			window.ReactNativeWebView.postMessage(
+				JSON.stringify({ 
+					type: "REQ_CAMERA_PERMISSION",
+					guideImageUrl: mission.mission?.guideImageUrl,
+					method: mission.mission?.method,
+				})
+			);
 		} else {
 			alert("모바일 환경이 아닙니다.");
 		}

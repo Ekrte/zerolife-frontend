@@ -8,7 +8,6 @@ const Container = styled.div`
     flex-direction: column;
     flex: 1;
 	align-items: center;
-    justify-content: center;
     font-family: 'Noto Sans KR', sans-serif;
     padding: 20px;
     box-sizing: border-box;
