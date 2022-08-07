@@ -197,7 +197,7 @@ function MissionStatus() {
 				<Title>미션 현황</Title>
 			</Header>
 			<Content id="mission-status-content">
-				{missionProgress.length && 
+				{missionProgress.length > 1 && 
 					<>
 						<div className="top" style={{ marginBottom: 20 }} ref={contentTopRef}/>
 						<StartImage/>
