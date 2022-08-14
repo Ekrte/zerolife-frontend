@@ -5,22 +5,9 @@ const dummyJwtToken = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJuaWNrbmFtZ
 const isLoggedIn = async () => {
 	if (typeof window === 'undefined') return "";
 	const user = localStorage.getItem('user');
-	const BACKEND_URL = "http://118.67.128.237";
-
-	// axios
-	// 	.post(`${BACKEND_URL}/apis/users`, 
-	// 		{ 
-	// 			email: "testUser231d@naver.com", 
-	// 			nickname: "testtestAdmin",
-	// 			password: "a123123123",
-	// 			marketingAgreement: true
-	// 		})
-	// 	.then((response: any) => console.log(response.data))
-	// 	.catch((err) => {
-	// 		console.error(err);
-	// 	})
+	
 	await axios
-		.post(`http://118.67.128.237/apis/auth/token`, 
+		.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/apis/auth/token`,
 			{ 
 				email: "test004@gmail.com", 
 				password: "abc123123",

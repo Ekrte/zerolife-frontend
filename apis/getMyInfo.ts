@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
-const BACKEND_URL = "http://118.67.128.237";
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export interface RewardType {
 	user: {                     // 회원 정보

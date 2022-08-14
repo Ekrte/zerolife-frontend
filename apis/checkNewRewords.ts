@@ -1,10 +1,8 @@
 import axios from "axios";
 
-const BACKEND_URL = "http://118.67.128.237";
-
 const checkNewRewords = () => 
 	axios
-		.get(`${BACKEND_URL}/apis/achieved-rewards/new`)
+		.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/apis/achieved-rewards/new`)
 		.then(response => response.data)
 		.catch((err) => {
 			if(!err?.response?.data) return;

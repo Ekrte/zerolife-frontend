@@ -1,14 +1,12 @@
 import axios from "axios";
 
-const BACKEND_URL = "http://118.67.128.237";
-
 interface checkDailyMissionProps {
 	(missionProgressId: number, encodedImage: string, evaluation: "EASY" | "NORMAL" | "HARD"): void
 }
 
 const checkDailyMission: checkDailyMissionProps = (missionProgressId, encodedImage, evaluation) => 
 	axios
-		.put(`${BACKEND_URL}/apis/mission-progress/${missionProgressId}`, {
+		.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/apis/mission-progress/${missionProgressId}`, {
 			proofImageUrl: encodedImage,
 			evaluation: evaluation,
 		}, {
