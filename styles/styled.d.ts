@@ -33,6 +33,8 @@ declare module "styled-components" {
 				shadeDark: string,
 			},
 			red: {
+				solar: string,
+				required: string,
 				tintLight: string,
 				tintDark: string,
 				full: string,

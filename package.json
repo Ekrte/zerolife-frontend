@@ -35,7 +35,8 @@
 		"react-query": "^3.39.0",
 		"react-swipeable-views": "^0.14.0",
 		"react-swipeable-views-utils": "^0.14.0",
-		"styled-components": "^5.3.5"
+		"styled-components": "^5.3.5",
+		"yup": "^0.32.11"
 	},
 	"devDependencies": {
 		"@types/node": "17.0.31",

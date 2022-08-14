@@ -33,6 +33,8 @@ export const defaultTheme: DefaultTheme = {
 			shadeDark: "#092B00",
 		},
 		red: {
+			solar: "#F74857",
+			required: "#F31818",
 			tintLight: "#FFF1F0",
 			tintDark: "#FF8E8A",
 			full: "#DD1D1D",
