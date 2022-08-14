@@ -1,43 +1,16 @@
 import axios from "axios";
 
-const dummyJwtToken = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJuaWNrbmFtZSI6InRlc3QwMDQiLCJpZCI6NCwiZW1haWwiOiJ0ZXN0MDA0QGdtYWlsLmNvbSIsImlzcyI6Inplcm9saWZlIiwiZXhwIjoxNjU5OTc3MTM4fQ.c1OlWSQgk9NNeWU_WPL85Yvbq0KInt-349OBP24n5M2h-6ENBr4VDmt8Y46vch5BMWrUJRXtwa1sgOTDl2QoJw';
-
 const isLoggedIn = async () => {
 	if (typeof window === 'undefined') return "";
 	const user = localStorage.getItem('user');
 	
-	await axios
-		.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/apis/auth/token`,
-			{ 
-				email: "test004@gmail.com", 
-				password: "abc123123",
-			})
-		.then((response: any) => {
-			console.log(response.data.accessToken);
-			axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`;
-		})
-		.catch((err) => {
-			console.error(err);
-		})
-	
-	// if(user) {
-	// 	const { id, jwtToken } = JSON.parse(user);
-	// 	axios.defaults.headers.common['Authorization'] = jwtToken;
-	// 	axios.defaults.headers.common['Authorization'] = dummyJwtToken;
-	// 	return id;
-	// } else {
-	// 	return axios
-	// 	.get<{ id: string, jwtToken: string }>('/auth')
-	// 	.then(res => {
-	// 		localStorage.setItem('user', JSON.stringify(res.data)); // for saving a token to localStorage from authenicated session
-	// 		// axios.defaults.headers.common['Authorization'] = res.data.jwtToken;
-	// 		axios.defaults.headers.common['Authorization'] = dummyJwtToken;
-	// 		return res.data.id;
-	// 	})
-	// 	.catch(err => {
-	// 		location.assign('/splash'); // go to login page
-	// 	})
-	// }
+	if(user) {
+		const { id, accessToken } = JSON.parse(user);
+		axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+		return id;
+	} else {
+		location.assign('/splash'); // go to splash page
+	}
 }
 
 export default isLoggedIn;

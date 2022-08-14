@@ -2,7 +2,6 @@ import type { NextPage } from "next";
 import styled, { useTheme } from "styled-components";
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
-import isLoggedIn from "../hooks/isLoggedIn";
 import CheckboxMessage from "../components/consent/CheckboxMessage";
 import { PageContainer } from "../layouts";
 import { ArrowLeft } from "phosphor-react";
@@ -11,6 +10,7 @@ import LabeledInput from "../components/LabeledInput";
 import ConsentView from "../components/consent/ConsentView";
 import * as Yup from "yup";
 import axios from "axios";
+import getAccessToken from "../apis/getAccessToken";
 
 
 const agreementItems = [
@@ -41,17 +41,6 @@ const Consent: NextPage = () => {
     const [agreementList, setAgreementList] = useState<string[]>([]);
     const [backendErrors, setBackendErrors] = useState({});
     const theme = useTheme();
-
-    useEffect(() => {
-        async function initPage() {
-			try {
-				await isLoggedIn();
-			} finally {
-                
-			}
-		}
-		initPage()
-    }, [])
     
 	return (
         <PageContainer className="page-container">
@@ -74,7 +63,10 @@ const Consent: NextPage = () => {
                                         passwordConfirm: undefined,
                             			marketingAgreement: agreementList.includes("marketing")
                             		})
-                            	.then((response: any) => console.log(response.data))
+                            	.then(async (response: any) => {
+                                    await getAccessToken(values.email, values.password);
+                                    location.assign('/daily-mission');
+                                })
                             	.catch((err) => {
                                     const { error } = err.response.data;
                                     switch(error.code) {

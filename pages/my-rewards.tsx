@@ -6,14 +6,7 @@ import isLoggedIn from "../hooks/isLoggedIn";
 import { useEffect } from "react";
 
 function MyRewards() {
-	useEffect(() => {
-		async function initPage() {
-			try {
-				await isLoggedIn();
-			} finally {}
-		}
-		initPage()
-	}, []);
+	isLoggedIn();
 	const router = useRouter();
 	const { animate, state } = router.query;
 

@@ -1,21 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
-import { Bell } from "phosphor-react";
 import styled, { useTheme } from "styled-components";
 import { Header, StickyHeader } from "../layouts/header";
 import DefaultLayout from "../layouts";
 import Image from "next/image";
 import moment from "moment";
-import BellImage from "../public/icon/Bell.svg";
-import PageOverlay from "../components/PageOverlay";
 import Modal from "../components/Modal";
-import NotificationSection from "../components/NotificationSection";
 import { useEffect, useState } from "react";
 import MissionCheckModalContent from "../components/daily-mission/MissionCheckModalContent";
 import getDailyMission from "../apis/getDailyMission";
 import RewardModalContent from "../components/RewardModalContent";
-import MyRewardsSection from "../components/my-rewards/MyRewardsSection";
 import isLoggedIn from "../hooks/isLoggedIn";
-import { stringify } from "querystring";
 
 const Title = styled.div`
 	font-size: 24px;
@@ -134,6 +128,7 @@ declare global {
 
 function MyPage() {
 	const theme = useTheme();
+	isLoggedIn();
 	const [ showNotification, setShowNotification ] = useState(false);
 	const [ showMissionModal, setShowMissionModal ] = useState(false);
 	const [ rewardId, setRewardId ] = useState(0);
@@ -173,15 +168,7 @@ function MyPage() {
 	};
 	
 	useEffect(() => {
-		async function initPage() {
-			try {
-				await isLoggedIn();
-			} finally {
-				getDailyMission(getMissionCallback);
-			}
-		}
-		initPage();
-
+		getDailyMission(getMissionCallback);
 		updateRemainingTime();
 		setInterval(updateRemainingTime, 1000);
 
