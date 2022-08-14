@@ -73,7 +73,7 @@ const LabeledInputWrapper = styled.div`
 `
 
 const LabeledInput = (props: any) => {
-    const { type, accessKey, handleChange, handleBlur, value, errors, touched } = props;
+    const { type, accessKey, handleChange, handleBlur, value, errors, touched, setBackendErrors } = props;
 
     return (
         <LabeledInputWrapper>
@@ -85,7 +85,7 @@ const LabeledInput = (props: any) => {
                 type={type}
                 className={classNames("form-input", {"form-input--error": errors[accessKey] && touched[accessKey]})}
                 name={accessKey}
-                onChange={handleChange}
+                onChange={(e: any) => {handleChange(e); setBackendErrors({})}}
                 onBlur={handleBlur}
                 value={value}
                 placeholder={placeholders[accessKey]}
