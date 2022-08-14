@@ -6,7 +6,7 @@ const SectionContainer = styled.section`
 	display: flex;
 	row-gap: 16px;
 	flex-direction: column;
-	border-bottom: 1px ${({ theme }) => theme.colors.gray10} solid;
+	border-bottom: 1px ${({ theme }) => theme.colors.gray30} solid;
 `;
 
 const MissionCardContainer = styled.ul`

@@ -35,8 +35,9 @@ interface CheckboxMessageProps {
     title?: string,
     message: string, 
     link?: string,
-    checked: boolean, 
-    handleChange: Function
+    checked?: boolean, 
+    hideCheck?: boolean;
+    handleChange?: Function
 }
 
 const CheckboxMessage = (props: CheckboxMessageProps) => {
@@ -73,7 +74,7 @@ const CheckboxMessage = (props: CheckboxMessageProps) => {
             className="checkbox-message" 
             onClick={handleClick}
         >
-            <Checkbox className="checkbox" onClick={handleChange} checked={checked} />
+            {!props.hideCheck && <Checkbox className="checkbox" onClick={handleChange} checked={checked} />}
             <span className="message">{props.message}</span>
             {props.link && 
                 <CaretRight 

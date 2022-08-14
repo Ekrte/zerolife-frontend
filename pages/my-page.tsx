@@ -23,7 +23,7 @@ const AvatarSection = styled.section`
 	display: flex;
 	column-gap: 13px;
 	align-items: center;
-	border-bottom: 1px ${({ theme }) => theme.colors.gray10} solid;
+	border-bottom: 0.5px ${({ theme }) => theme.colors.gray30} solid;
 `;
 
 const AvatarName = styled.div`
@@ -32,21 +32,11 @@ const AvatarName = styled.div`
 	color: ${(props) => props.theme.colors.white};
 `;
 
-const JoinedMissionSection = styled.section`
+const Section = styled.section`
 	font-size: 14px;
 	line-height: 21px;
 	font-weight: 500;
-	border-bottom: 1px ${({ theme }) => theme.colors.gray10} solid;
-	color: ${(props) => props.theme.colors.white};
-	padding: 18px;
-	cursor: pointer;
-`;
-
-const MyRewardSection = styled.section`
-	font-size: 14px;
-	line-height: 21px;
-	font-weight: 500;
-	border-bottom: 1px ${({ theme }) => theme.colors.gray10} solid;
+	border-bottom: 0.5px ${({ theme }) => theme.colors.gray30} solid;
 	color: ${(props) => props.theme.colors.white};
 	padding: 18px;
 `;
@@ -82,12 +72,15 @@ function MyPage() {
 			{myInfo && <MissionStatusSection 
 				{...myInfo?.missionState}
 			/>}
-			<JoinedMissionSection>
+			<Section>
 				<Link href="/complete-missions">참여한 인증 보기</Link>
-			</JoinedMissionSection>
-			<MyRewardSection>
-				<Link href={`my-rewards?state=${state}`}>내 리워드 보기</Link>
-			</MyRewardSection>
+			</Section>
+			<Section>
+				<Link href={`/my-rewards?state=${state}`}>내 리워드 보기</Link>
+			</Section>
+			<Section>
+				<Link href={`/agreement`}>이용약관 및 개인정보처리방침</Link>
+			</Section>
 		</DefaultLayout>
 	);
 }

@@ -41,6 +41,9 @@ const PageContainerOverlay = styled.div`
     }
 
     .notion {
+        font-size: 14px;
+        line-height: 1.3;
+
         .notion-blank, .notion-hr {
             display: none;
         }
