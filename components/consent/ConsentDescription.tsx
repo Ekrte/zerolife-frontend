@@ -49,19 +49,14 @@ const PageContainerOverlay = styled.div`
     
 `
 
-const ConsentDescription = (props: { setVisible: Function, title?: string, link: string }) => {
+const ConsentDescription = (props: { setVisible: Function, title?: string, contents: any }) => {
     const theme= useTheme();
-    const [ contents, setContents ] = useState<BlockMapType>({});
+    
     const contentTopRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const getConsentContents = async () => {
-            const data = await fetch(props.link).then(res => res.json());
-            setContents(data);
-        }
-        getConsentContents();
         contentTopRef?.current?.scrollIntoView({ behavior: "auto" })
-    }, [props.link, contentTopRef]);
+    }, [contentTopRef]);
 
     if(typeof window === 'undefined') return <></>;
     const container = document.getElementsByClassName("page-container");
@@ -79,7 +74,7 @@ const ConsentDescription = (props: { setVisible: Function, title?: string, link:
                         color={theme.colors.white}
                     />
                 </div>
-                <NotionRenderer blockMap={contents} />
+                <NotionRenderer blockMap={props.contents} />
             </div>
         </PageContainerOverlay>, container[0]);
 };

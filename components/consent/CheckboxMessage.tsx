@@ -1,5 +1,6 @@
 import { CaretRight } from "phosphor-react";
 import { useEffect, useRef, useState } from "react";
+import { BlockMapType } from "react-notion";
 import styled, { useTheme } from "styled-components";
 import Checkbox from "./Checkbox";
 import ConsentDescription from "./ConsentDescription";
@@ -41,6 +42,7 @@ interface CheckboxMessageProps {
 const CheckboxMessage = (props: CheckboxMessageProps) => {
     const [ checked, setChecked ] = useState(false);
     const [ visible, setVisible ] = useState(false);
+    const [ contents, setContents ] = useState<BlockMapType>({});
     const theme = useTheme();
 
     useEffect(() => {
@@ -48,7 +50,13 @@ const CheckboxMessage = (props: CheckboxMessageProps) => {
     }, [props.checked])
 
     const handleClick = (e: any) => {
-        props.link && setVisible(true);
+        const getConsentContents = async () => {
+            if(!props.link) return;
+            const data = await fetch(props.link).then(res => res.json());
+            setContents(data);
+            setVisible(true);
+        }
+        getConsentContents();
     }
 
     const handleChange = (e: any) => {
@@ -79,7 +87,7 @@ const CheckboxMessage = (props: CheckboxMessageProps) => {
             {props.link && visible &&
                 <ConsentDescription 
                     title={props.title}
-                    link={props.link}
+                    contents={contents}
                     setVisible={setVisible}
                 />
             }
