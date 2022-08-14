@@ -31,10 +31,10 @@ const CheckboxMessageWrapper = styled.div`
 `
 
 interface CheckboxMessageProps {
+    title?: string,
     message: string, 
+    link?: string,
     checked: boolean, 
-    extend?: boolean,
-    agreementItem?: { title: string, description: string },
     handleChange: Function
 }
 
@@ -42,11 +42,14 @@ const CheckboxMessage = (props: CheckboxMessageProps) => {
     const [ checked, setChecked ] = useState(false);
     const [ visible, setVisible ] = useState(false);
     const theme = useTheme();
-    const expandRef = useRef(null);
 
     useEffect(() => {
         setChecked(props.checked);
     }, [props.checked])
+
+    const handleClick = (e: any) => {
+        props.link && setVisible(true);
+    }
 
     const handleChange = (e: any) => {
         e.stopPropagation()
@@ -60,22 +63,23 @@ const CheckboxMessage = (props: CheckboxMessageProps) => {
     return (
         <CheckboxMessageWrapper 
             className="checkbox-message" 
-            onClick={() => { props.agreementItem && setVisible(true) }}
+            onClick={handleClick}
         >
             <Checkbox className="checkbox" onClick={handleChange} checked={checked} />
             <span className="message">{props.message}</span>
-            {props.agreementItem && 
+            {props.link && 
                 <CaretRight 
                     className="checkbox-message-extend-icon"
                     size={16} 
                     weight="bold" 
                     color={theme.colors.gray40}
-                    onClick={() => setVisible(true)}
+                    onClick={handleClick}
                 />
             }       
-            {props.agreementItem && visible &&
+            {props.link && visible &&
                 <ConsentDescription 
-                    agreementItem={props.agreementItem}
+                    title={props.title}
+                    link={props.link}
                     setVisible={setVisible}
                 />
             }

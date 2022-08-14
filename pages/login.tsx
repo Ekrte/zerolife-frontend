@@ -84,8 +84,8 @@ const LoginPage: NextPage = () => {
                         {`제로웨이스트와 함께하는\n 건강한 지구 만들기`}
                     </div>
                 </div>
-                <KakaoLoginButton onClick={() => location.assign('/auth/kakao')}>
-                    카카오톡으로 시작하기
+                <KakaoLoginButton onClick={() => location.assign('/consent')}>
+                    이메일 회원 가입
                 </KakaoLoginButton>
             </LoginView>
         </PageContainer>

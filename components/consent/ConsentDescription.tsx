@@ -1,6 +1,8 @@
 import { createPortal } from "react-dom";
 import styled, { useTheme } from "styled-components";
 import { ArrowLeft } from "phosphor-react";
+import { BlockMapType, NotionRenderer } from "react-notion";
+import { useEffect, useRef, useState } from "react";
 
 const PageContainerOverlay = styled.div`
     position: absolute;
@@ -27,33 +29,40 @@ const PageContainerOverlay = styled.div`
         flex-grow: 1;
         box-sizing: border-box;
         padding: 10px 0px;
-        overflow: hidden;
     }
 
     .consent-navigation {
         height: 32px;
-        margin-bottom: 36px;
+        margin-top: -10px;
+        padding: 10px 0px;
+        top: 0px;
+        background-color: ${(props) => props.theme.colors.background};
+        position: sticky;
     }
 
-    .consent-title {
-        font-size: 20px;
-        font-weight: 500;
-        line-height: 30px;
-        margin-bottom: 52px;
+    .notion {
+        .notion-blank, .notion-hr {
+            display: none;
+        }
     }
 
-    .consent-description {
-        display: flex;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 21px;
-        white-space: pre-line;
-        overflow-y: auto;
-    }    
+    
 `
 
-const ConsentDescription = (props: { setVisible: Function, agreementItem: { title: string, description: string } }) => {
+const ConsentDescription = (props: { setVisible: Function, title?: string, link: string }) => {
     const theme= useTheme();
+    const [ contents, setContents ] = useState<BlockMapType>({});
+    const contentTopRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const getConsentContents = async () => {
+            const data = await fetch(props.link).then(res => res.json());
+            setContents(data);
+        }
+        getConsentContents();
+        contentTopRef?.current?.scrollIntoView({ behavior: "auto" })
+    }, [props.link, contentTopRef]);
+
     if(typeof window === 'undefined') return <></>;
     const container = document.getElementsByClassName("page-container");
     if(!container) return <></>;
@@ -61,6 +70,7 @@ const ConsentDescription = (props: { setVisible: Function, agreementItem: { titl
     return createPortal(
         <PageContainerOverlay>
             <div className="description-container">
+                <div className="top" ref={contentTopRef}/>
                 <div className="consent-navigation">
                     <ArrowLeft 
                         size={32} 
@@ -69,12 +79,7 @@ const ConsentDescription = (props: { setVisible: Function, agreementItem: { titl
                         color={theme.colors.white}
                     />
                 </div>
-                <div className="consent-title">
-                    {props.agreementItem.title}
-                </div>
-                <div className="consent-description">
-                    {props.agreementItem.description}
-                </div>
+                <NotionRenderer blockMap={contents} />
             </div>
         </PageContainerOverlay>, container[0]);
 };
