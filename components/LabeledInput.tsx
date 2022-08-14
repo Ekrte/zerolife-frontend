@@ -75,8 +75,6 @@ const LabeledInputWrapper = styled.div`
 const LabeledInput = (props: any) => {
     const { type, accessKey, handleChange, handleBlur, value, errors, touched } = props;
 
-    console.log(JSON.stringify(errors, null, 2));
-
     return (
         <LabeledInputWrapper>
             <span className="form-input-label">
@@ -85,7 +83,7 @@ const LabeledInput = (props: any) => {
             </span>
             <Field
                 type={type}
-                className={classNames("form-input", {"form-input--error": !!errors[accessKey]})}
+                className={classNames("form-input", {"form-input--error": errors[accessKey] && touched[accessKey]})}
                 name={accessKey}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -94,7 +92,7 @@ const LabeledInput = (props: any) => {
                 autoComplete={"off"}
             />
             <div className="form-input-message--error">
-                {errors[accessKey] }
+                {errors[accessKey] && touched[accessKey] && errors[accessKey]}
             </div>
         </LabeledInputWrapper>
     )
