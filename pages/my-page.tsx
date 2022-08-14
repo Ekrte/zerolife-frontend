@@ -10,6 +10,7 @@ import isLoggedIn from "../hooks/isLoggedIn";
 import { useEffect, useState } from "react";
 import getMyRewards from "../apis/getMyRewards";
 import getMyInfo, { RewardType } from "../apis/getMyInfo";
+import axios from "axios";
 
 const Title = styled.div`
 	font-size: 24px;
@@ -41,6 +42,18 @@ const Section = styled.section`
 	padding: 18px;
 `;
 
+const SignOutButton = styled.button`
+	display: flex;
+	margin: auto 16px 14px auto;
+	background: transparent;
+	outline: none;
+	border: 0;
+	font-size: 12px;
+	line-height: 1.5;
+	font-weight: 500;
+	color: ${(props) => props.theme.colors.gray50};
+`
+
 function MyPage() {
 	//apis/users/achieved-rewards
 	isLoggedIn();
@@ -54,6 +67,15 @@ function MyPage() {
 		});
 		getMyInfo((data) => setMyInfo(data));
 	}, []);
+
+	const signOut = () => 
+		axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/apis/users`)
+			.then(() => {
+				localStorage.removeItem('user');
+				location.assign('/splash')
+			})
+			.catch((err) => {})
+	
 	
 	return (
 		<DefaultLayout>
@@ -81,6 +103,7 @@ function MyPage() {
 			<Section>
 				<Link href={`/agreement`}>이용약관 및 개인정보처리방침</Link>
 			</Section>
+			<SignOutButton onClick={signOut}>탈퇴하기</SignOutButton>
 		</DefaultLayout>
 	);
 }
