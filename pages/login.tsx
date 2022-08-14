@@ -60,9 +60,11 @@ const KakaoLoginButton = styled.button`
 	font-size: 14px;
 	border-radius: 5px;
     margin-top: auto;
-    margin-bottom: 71px;
+    margin-bottom: 24px;
+    outline: none;
+    border: none;
 	color: ${props => props.theme.colors.gray80};
-	background: ${props => props.theme.colors.yellow.full};
+	background: ${props => props.theme.colors.secondary20};
 `;
 
 
