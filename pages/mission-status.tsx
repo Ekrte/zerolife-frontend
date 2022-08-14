@@ -182,6 +182,7 @@ function MissionStatus() {
 					for(let i = 0; i < data.length / 6; i++) {
 						chunks.push(data.slice(i * 6, i * 6 + 6));
 					}
+					console.log(chunks);
 					setMissionProgress(chunks);
 				});
 				bottomRef.current?.scrollIntoView({behavior: 'smooth'});
@@ -197,7 +198,7 @@ function MissionStatus() {
 				<Title>미션 현황</Title>
 			</Header>
 			<Content id="mission-status-content">
-				{missionProgress.length > 1 && 
+				{missionProgress.length >= 1 && 
 					<>
 						<div className="top" style={{ marginBottom: 20 }} ref={contentTopRef}/>
 						<StartImage/>
