@@ -7,7 +7,6 @@ const getDailyMission = (callbackFn: (mission: object) => void, onChallengeEnd?:
 		.get(`${BACKEND_URL}/apis/daily-mission-progress`)
 		.then((response) => callbackFn(response.data))
 		.catch((err) => {
-			console.error(err.response.data);
 			const { error } = err.response.data;
 			if(error.code === "E3000") {
 				axios
@@ -17,11 +16,13 @@ const getDailyMission = (callbackFn: (mission: object) => void, onChallengeEnd?:
 						.get(`${BACKEND_URL}/apis/daily-mission-progress`)
 						.then((response) => callbackFn(response.data))
 				})
-			}
-
-			if(error.code === "E3010") {
-				// all done
-				onChallengeEnd?.(true);
+				.catch((err) => {
+					const { error } = err.response.data;
+					if(error.code === "E3010") {
+						// all done
+						onChallengeEnd?.(true);
+					}
+				})
 			}
 		})
 };
