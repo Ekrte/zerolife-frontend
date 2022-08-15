@@ -47,7 +47,7 @@ const CheckboxMessage = (props: CheckboxMessageProps) => {
     const theme = useTheme();
 
     useEffect(() => {
-        setChecked(props.checked);
+        setChecked(props.checked ? true : false);
     }, [props.checked])
 
     const handleClick = (e: any) => {
