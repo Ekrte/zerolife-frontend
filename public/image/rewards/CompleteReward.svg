@@ -1,0 +1,43 @@
+<svg width="203" height="192" viewBox="0 0 203 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+<ellipse cx="107" cy="95.2875" rx="42.5088" ry="42.9759" stroke="white" stroke-width="7"/>
+<path d="M149.009 95.2875C149.009 118.751 130.196 137.763 107 137.763C83.8046 137.763 64.9915 118.751 64.9915 95.2875C64.9915 71.8235 83.8046 52.8115 107 52.8115C130.196 52.8115 149.009 71.8235 149.009 95.2875Z" fill="#7DCBFF" stroke="#323138"/>
+<mask id="mask0_579_1838" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="69" y="54" width="34" height="30">
+<ellipse cx="86.1676" cy="69.0984" rx="16.7557" ry="14.1101" fill="#8CF75A"/>
+</mask>
+<g mask="url(#mask0_579_1838)">
+<circle cx="107.921" cy="95.2609" r="42.6242" fill="#A6E47A"/>
+</g>
+<mask id="mask1_579_1838" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="53" y="70" width="34" height="30">
+<ellipse cx="69.7557" cy="84.9721" rx="16.7557" ry="14.1101" fill="#4EE54B"/>
+</mask>
+<g mask="url(#mask1_579_1838)">
+<circle cx="107.97" cy="95.2607" r="42.6242" fill="#A6E47A"/>
+</g>
+<mask id="mask2_579_1838" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="130" y="65" width="35" height="33">
+<ellipse cx="147.579" cy="81.4446" rx="16.7557" ry="15.8738" fill="#4EE54B"/>
+</mask>
+<g mask="url(#mask2_579_1838)">
+<circle cx="106.425" cy="95.2607" r="42.6242" fill="#A6E47A"/>
+</g>
+<mask id="mask3_579_1838" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="123" y="91" width="34" height="33">
+<ellipse cx="140.168" cy="107.313" rx="16.7557" ry="15.8738" fill="#4EE54B"/>
+</mask>
+<g mask="url(#mask3_579_1838)">
+<circle cx="106.656" cy="95.2605" r="42.6242" fill="#A6E47A"/>
+</g>
+<mask id="mask4_579_1838" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="72" y="113" width="34" height="30">
+<ellipse cx="88.8146" cy="127.89" rx="16.7557" ry="14.1101" fill="#4EE54B"/>
+</mask>
+<g mask="url(#mask4_579_1838)">
+<circle cx="107.628" cy="95.2605" r="42.6242" fill="#A6E47A"/>
+</g>
+<path d="M148.509 95.2875C148.509 118.48 129.915 137.263 107 137.263C84.0859 137.263 65.4915 118.48 65.4915 95.2875C65.4915 72.0945 84.0859 53.3115 107 53.3115C129.915 53.3115 148.509 72.0945 148.509 95.2875Z" stroke="#323138" stroke-width="2"/>
+<circle cx="57.1765" cy="31.1765" r="3.17647" fill="#FF8E8A"/>
+<circle cx="51.1765" cy="147.176" r="3.17647" fill="#FF8E8A"/>
+<circle cx="159.176" cy="31.1765" r="3.17647" fill="#FF8E8A"/>
+<path d="M159.353 167L160.282 170.94L163.845 168.783L161.595 172.198L165.706 173.088L161.595 173.978L163.845 177.393L160.282 175.237L159.353 179.176L158.424 175.237L154.861 177.393L157.111 173.978L153 173.088L157.111 172.198L154.861 168.783L158.424 170.94L159.353 167Z" fill="#FFCB7D"/>
+<path d="M196.353 64L197.282 67.9398L200.845 65.7832L198.595 69.1983L202.706 70.0882L198.595 70.9782L200.845 74.3933L197.282 72.2367L196.353 76.1765L195.424 72.2367L191.861 74.3933L194.111 70.9782L190 70.0882L194.111 69.1983L191.861 65.7832L195.424 67.9398L196.353 64Z" fill="#FFCB7D"/>
+<path d="M14 57L16.0464 65.736L23.8995 60.9541L18.9405 68.5267L28 70.5L18.9405 72.4733L23.8995 80.0459L16.0464 75.264L14 84L11.9536 75.264L4.1005 80.0459L9.05953 72.4733L0 70.5L9.05953 68.5267L4.1005 60.9541L11.9536 65.736L14 57Z" fill="#FFCB7D"/>
+<circle opacity="0.5" cx="107" cy="96" r="61.5" stroke="white" stroke-dasharray="5 5"/>
+<circle opacity="0.5" cx="107" cy="96" r="95.5" stroke="white" stroke-dasharray="5 5"/>
+</svg>

@@ -129,7 +129,6 @@ declare global {
 function MyPage() {
 	const theme = useTheme();
 	isLoggedIn();
-	const [ showNotification, setShowNotification ] = useState(false);
 	const [ showMissionModal, setShowMissionModal ] = useState(false);
 	const [ rewardId, setRewardId ] = useState(0);
 	
@@ -151,6 +150,9 @@ function MyPage() {
 	const updateRemainingTime = () => {
 		const remainingTime = moment().endOf("day").diff(moment());
 		const duration = moment.duration(remainingTime);
+		if(duration.as('millisecond') <= 1000) {
+			setTimeout(() => getDailyMission(getMissionCallback), 1000);
+		}
 		const hours = duration.hours().toString().padStart(2, '0');
 		const minutes = duration.minutes().toString().padStart(2, '0');
 		const formatted = `${hours}:${minutes}`; 
