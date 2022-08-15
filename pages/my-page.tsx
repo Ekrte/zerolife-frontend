@@ -82,9 +82,6 @@ function MyPage() {
 			<StickyHeader>
 				<Header>
 					<Title>마이 페이지</Title>
-					<Link href="/share">
-						<ShareNetwork size={28} color="#FFFFFF" />
-					</Link>
 				</Header>
 			</StickyHeader>
 			<AvatarSection>

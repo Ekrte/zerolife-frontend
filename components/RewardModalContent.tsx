@@ -3,6 +3,8 @@ import GetReward from "../public/image/rewards/GetReward.svg";
 import CompleteReward from "../public/image/rewards/CompleteReward.svg";
 import Image from "next/image";
 import Button from "./Button";
+import { useEffect, useState } from "react";
+import getMyRewards from "../apis/getMyRewards";
 
 const RewardWrapper = styled.div`
     display: flex;
@@ -72,12 +74,26 @@ const CompleteRewardContent = styled.div`
     }
 `
 
-function RewardModal({ rewardId }: { rewardId: number }) {
+function RewardModal(props: { rewardId: number, challengeCompleted?: boolean }) {
     const theme = useTheme();
+    const [ rewardId, setRewardId ] = useState(props.rewardId);
+    const { challengeCompleted } = props;
+    const isExpired = challengeCompleted && !props.rewardId;
+
+    useEffect(() => {
+        if(isExpired) {
+            // 리워드 획득이 아닌 60일 만료로 엔딩 모달이 뜬 경우,
+            // 현재 획득한 가장 마지막 reward를 가져온다.
+            getMyRewards((data) => {
+                const lastRewardState = data.filter(e => e.isAchieved).reduce((a, b) => a.id > b.id ? a : b)
+                setRewardId(lastRewardState.id);
+            });
+        }
+    }, [isExpired]);
 
     return (
         <RewardWrapper>
-            {rewardId < 10
+            {!challengeCompleted
             ? 
             <GetRewardContent>
                 <Image
@@ -101,16 +117,16 @@ function RewardModal({ rewardId }: { rewardId: number }) {
                     className="reward-icon"
                 />
                 <div className="complete-message">
-                    <div className="complete-message-title">{`60일 동안 제로웨이스트를  실천한 당신을 칭찬합니다.\n작은 습관이 깨끗한 지구를 만들었어요!`}</div>
+                    <div className="complete-message-title">{`60일 동안 제로웨이스트를 실천한 당신을 칭찬합니다.\n작은 습관이 깨끗한 지구를 만들었어요!`}</div>
                     <div className="complete-message-description">{`지금까지 인증한 미션을 잊지 말고\n제로웨이스트 습관을 유지해보세요!`}</div>
                 </div>
             </CompleteRewardContent>}
             <Button 
                 color={"white"}
                 background={theme.colors.secondary20}
-                onClick={() => location.assign(`/my-rewards?animate=1&state=${rewardId}`)}
+                onClick={() => location.assign(`/my-rewards?animate=${isExpired ? 0 : 1}&state=${rewardId}`)}
             >
-                {rewardId < 10 ? '리워드 받기' : '내 최종 리워드 보러가기'}
+                {challengeCompleted ? '내 최종 리워드 보러가기' : '리워드 받기'}
             </Button>
         </RewardWrapper>
     )

@@ -10,6 +10,7 @@ import MissionCheckModalContent from "../components/daily-mission/MissionCheckMo
 import getDailyMission from "../apis/getDailyMission";
 import RewardModalContent from "../components/RewardModalContent";
 import isLoggedIn from "../hooks/isLoggedIn";
+import checkNewRewords from "../apis/checkNewRewords";
 
 const Title = styled.div`
 	font-size: 24px;
@@ -45,6 +46,12 @@ const Tooltip = styled.div`
 		font-weight: 400;
 		font-size: 14px;
 		line-height: 1.5;
+		white-space: pre-line;
+
+		b {
+			font-weight: 500;
+			color: ${props => props.theme.colors.red.solar};
+		}
 	}
 `;
 
@@ -94,6 +101,26 @@ const Mission = styled.div`
 		margin-bottom: 4px;
 	}
 
+	.challenge-complete-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		
+		.challenge-complete-title {
+			width: 206px;
+			font-weight: 500;
+			font-size: 24px;
+			line-height: 29px;
+			color: white;
+			text-align: center;
+			margin-bottom: 53px;
+			white-space: pre-line;
+		}
+		padding-top: 20px;
+		padding-bottom: 58px;
+	}
+
 	.mission-remaining-time {
 		font-weight: 500;
 		font-size: 12px;
@@ -107,7 +134,6 @@ const Mission = styled.div`
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-
 	}
 
 	.mission-upload-button {
@@ -119,6 +145,71 @@ const Mission = styled.div`
 	}
 `;
 
+const ChallengeEndCard = () => 
+	<Content>
+		<Tooltip>
+			<span className="message">
+				{`축하드려요!! 60일 미션을 모두 마치셨네요!!\n그 동안 제로웨이스트가 조금 익숙해지셨나요?\n`}
+				<b>{`처음엔 어려웠겠지만 지금까지 인증한 미션들을 돌아보면 습관이 형성된걸 알 수 있을거에요~`}</b>
+			</span>
+		</Tooltip>
+		<Mission>
+			<div className="challenge-complete-container">
+				<div className="challenge-complete-title">
+					{`60일 미션\n잊지말고\n지속적으로 실천하기`}
+				</div>
+				<Image
+					height={173}
+					width={173}
+					src={'/image/today/challenge-completed.svg'}
+					alt={"challenge-complete-icon"}
+					className="challenge-complete-icon"
+				/>
+			</div>
+		</Mission>
+	</Content>
+
+const MissionProgressCard = (props: any) => {
+	const { mission, sendCaptureRequest, remainingTime, missionIconPath, setMissionIconPath } = props;
+	return (
+		<Content>
+			{mission.mission && <Tooltip>
+				<span className="message">{mission.mission.description}</span>
+			</Tooltip>}
+			{mission.mission && <Mission onClick={sendCaptureRequest}>
+				<div className="mission-header">
+					<div className="mission-tag">
+						<span>#{mission.daysOfProgress} 미션</span>
+					</div>
+					<div className="mission-title">{mission.mission.title}</div>
+					<div className="mission-remaining-time">
+						{mission.missionProgress.isCompleted ?  "미션 수행 완료" : `${remainingTime} 남음`}
+					</div>
+				</div>
+				
+				<div className="mission-upload">
+					<Image
+						height={173}
+						width={173}
+						src={missionIconPath}
+						onError={() => setMissionIconPath("/image/today/defaultIcon.svg")}
+						alt={"icon of Mission"}
+						className="mission-icon"
+					/>
+					<div className="mission-upload-button">
+						{mission.missionProgress.isCompleted 
+							? `${mission.daysOfProgress}일차 미션을 기다려주세요`
+							: "미션 인증하기"
+						}
+					</div>
+				</div>
+			</Mission>
+		}
+	</Content>
+	)
+}
+
+
 declare global {
 	interface Window {
 		ReactNativeWebView: any
@@ -127,11 +218,11 @@ declare global {
 
 
 function MyPage() {
-	const theme = useTheme();
 	isLoggedIn();
 	const [ showMissionModal, setShowMissionModal ] = useState(false);
+	const [ showRewardModal, setShowRewardModal ] = useState(false);
+	const [ challengeCompleted, setChallengeCompleted ] = useState(false);
 	const [ rewardId, setRewardId ] = useState(0);
-	
 	const [ encodedImage, setEncodedImage ] = useState("");
 	const [ mission, setMission ] = useState<{ 
 		mission?: {
@@ -147,11 +238,16 @@ function MyPage() {
 	const [ remainingTime, setRemainingTime ] = useState("");
 	const [ missionIconPath, setMissionIconPath ] = useState("/image/today/defaultIcon.svg");
 
+	const handleChallengeEnd = () => {
+		setChallengeCompleted(true);
+		setShowRewardModal(true);
+	}
+
 	const updateRemainingTime = () => {
 		const remainingTime = moment().endOf("day").diff(moment());
 		const duration = moment.duration(remainingTime);
 		if(duration.as('millisecond') <= 1000) {
-			setTimeout(() => getDailyMission(getMissionCallback), 1000);
+			setTimeout(() => getDailyMission(getMissionCallback, handleChallengeEnd), 1000);
 		}
 		const hours = duration.hours().toString().padStart(2, '0');
 		const minutes = duration.minutes().toString().padStart(2, '0');
@@ -168,9 +264,12 @@ function MyPage() {
 		setMission(mission);
 		setMissionIconPath(`/image/today/${mission.mission.category.toLowerCase()}-${mission.missionProgress.isCompleted ? "completed" : "progress"}.svg`);
 	};
+
+	
 	
 	useEffect(() => {
-		getDailyMission(getMissionCallback);
+		if(challengeCompleted) return;
+		getDailyMission(getMissionCallback, setChallengeCompleted);
 		updateRemainingTime();
 		setInterval(updateRemainingTime, 1000);
 
@@ -193,7 +292,13 @@ function MyPage() {
 				window.removeEventListener("message", listener);
 			}
 		}
-	}, []);
+	}, [challengeCompleted]);
+
+	useEffect(() => {
+		if(rewardId === 10) {
+			setChallengeCompleted(true)
+		};
+	}, [rewardId])
 
 	const sendCaptureRequest = () => {
 		if (window.ReactNativeWebView) {
@@ -215,48 +320,18 @@ function MyPage() {
 			<StickyHeader>
 				<Header>
 					<Title>오늘의 미션</Title>
-					{/* <Image
-						src={BellImage}
-						alt="bell Image"
-					/> */}
 				</Header>
 			</StickyHeader>
-			<Content>
-				{mission.mission && <Tooltip>
-					<span className="message">{mission.mission.description}</span>
-				</Tooltip>}
-				{mission.mission && <Mission onClick={sendCaptureRequest}>
-					<div className="mission-header">
-						<div className="mission-tag">
-							<span>#{mission.daysOfProgress} 미션</span>
-						</div>
-						<div className="mission-title">{mission.mission.title}</div>
-						<div className="mission-remaining-time">
-							{mission.missionProgress.isCompleted ?  "미션 수행 완료" : `${remainingTime} 남음`}
-						</div>
-					</div>
-					
-					<div className="mission-upload">
-						<Image
-							height={173}
-							width={173}
-							src={missionIconPath}
-							onError={() => setMissionIconPath("/image/today/defaultIcon.svg")}
-							alt={"icon of Mission"}
-							className="mission-icon"
-						/>
-						<div className="mission-upload-button">
-							{mission.missionProgress.isCompleted 
-								? `${mission.daysOfProgress}일차 미션을 기다려주세요`
-								: "미션 인증하기"
-							}
-						</div>
-					</div>
-				</Mission>}
-			</Content>
-			{/* <PageOverlay title="알림" onBack={() => setShowNotification(false)} show={showNotification}>
-				<NotificationSection notifications={MOCK_NOTIFICATIONS} />
-			</PageOverlay> */}
+			{challengeCompleted 
+				? <ChallengeEndCard />
+				: <MissionProgressCard
+					mission={mission}
+					sendCaptureRequest={sendCaptureRequest}
+					remainingTime={remainingTime}
+					missionIconPath={missionIconPath}
+					setMissionIconPath={setMissionIconPath}
+				/>
+			}
 			{mission?.missionProgress?.id && encodedImage && 
 				<Modal title="인증 사진" 
 					onBack={onBackMissionModal} 
@@ -267,18 +342,26 @@ function MyPage() {
 						encodedImage={encodedImage}
 						sendCaptureRequest={sendCaptureRequest}
 						setShowMissionModal={setShowMissionModal}
-						onSuccess={() => getDailyMission(getMissionCallback)}
-						setRewardId={setRewardId}
+						onSuccess={async () => {
+							getDailyMission(getMissionCallback, handleChallengeEnd);
+							const data = await checkNewRewords();
+							if(data?.length > 0) {
+								const rewardId = data[0]?.achievedRewardId;
+								setRewardId(rewardId ?? 0);
+								setShowRewardModal(true);
+							}
+						}}
 					/>
 				</Modal>
 			}
 			<Modal 
 				title="" 
-				onBack={() => setRewardId(0)}
-				show={rewardId > 0}
+				onBack={() => { setShowRewardModal(false); setRewardId(0); }}
+				show={showRewardModal}
 			>
-				<RewardModalContent 
+				<RewardModalContent
 					rewardId={rewardId}
+					challengeCompleted={challengeCompleted}
 				/>
 			</Modal>
 		</DefaultLayout>
