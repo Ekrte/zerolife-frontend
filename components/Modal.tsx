@@ -14,6 +14,7 @@ const StyledModal = styled.div`
 	width: 330px;
 	border-radius: 20px;
 	flex-direction: column;
+	font-family: 'Noto Sans KR', sans-serif;
 
 	.modal-header {
 		display: flex;
@@ -27,8 +28,8 @@ const StyledModal = styled.div`
 		.modal-header-title {
 			display: flex;
 			color: white;
-			font-weight: 700;
-			font-size: 24px;
+			font-weight: 500;
+			font-size: 20px;
 		}
 
 		.modal-close-button {

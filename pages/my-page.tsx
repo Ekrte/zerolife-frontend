@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { ShareNetwork } from "phosphor-react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { Header, StickyHeader } from "../layouts/header";
 import DefaultLayout from "../layouts";
 import AvatarImage from "../public/avatar.svg";
@@ -11,6 +11,8 @@ import { useEffect, useState } from "react";
 import getMyRewards from "../apis/getMyRewards";
 import getMyInfo, { RewardType } from "../apis/getMyInfo";
 import axios from "axios";
+import Modal from "../components/Modal";
+import Button from "../components/Button";
 
 const Title = styled.div`
 	font-size: 24px;
@@ -54,11 +56,36 @@ const SignOutButton = styled.button`
 	color: ${(props) => props.theme.colors.gray50};
 `
 
+const SignOutModalContent = styled.div`
+	display: flex;
+    flex-direction: column;
+    
+    justify-content: center;
+    padding: 0px 24px;
+    font-family: 'Noto Sans KR', sans-serif;
+
+	.signout-warning-message {
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 1.5;
+		margin-bottom: 11px;
+		white-space: pre-line;
+		color: ${props => props.theme.colors.white};
+	}
+
+	button {
+		margin: 24px 0px;
+		width: 100%;
+	}
+`
+
 function MyPage() {
 	//apis/users/achieved-rewards
 	isLoggedIn();
+	const theme = useTheme();
 	const [ state, setState ] = useState(0);
 	const [ myInfo, setMyInfo ] = useState<RewardType | undefined>();
+	const [ showSignOutModal, setShowSignOutModal ] = useState(false);
 
 	useEffect(() => {
 		getMyRewards((data) => {
@@ -75,7 +102,6 @@ function MyPage() {
 				location.assign('/splash')
 			})
 			.catch((err) => {})
-	
 	
 	return (
 		<DefaultLayout>
@@ -100,7 +126,27 @@ function MyPage() {
 			<Section>
 				<Link href={`/agreement`}>이용약관 및 개인정보처리방침</Link>
 			</Section>
-			<SignOutButton onClick={signOut}>탈퇴하기</SignOutButton>
+			<SignOutButton onClick={() => setShowSignOutModal(true)}>탈퇴하기</SignOutButton>
+			<Modal 
+				title="회원 탈퇴하기" 
+				onBack={() => setShowSignOutModal(false)}
+				show={showSignOutModal}
+			>
+				<SignOutModalContent>
+					<span className="signout-warning-message">
+						{"탈퇴하시면 모든 회원 정보가 소멸됩니다.\n정말로 탈퇴하시겠습니까?"}
+					</span>
+					<Button 
+						className="signout-button"
+						color={"white"}
+						background={theme.colors.red.solar}
+						onClick={signOut}
+					>
+						{'탈퇴하기'}
+					</Button>
+				</SignOutModalContent>
+			</Modal>
+			
 		</DefaultLayout>
 	);
 }
