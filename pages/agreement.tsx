@@ -6,7 +6,7 @@ import CheckboxMessage from "../components/consent/CheckboxMessage";
 const agreementItems = [
     { key: "service", title: "서비스 이용약관", required: true, link: "https://notion-api.splitbee.io/v1/page/1f72a14f109740bfbd7fb4a99a7eb562" }, 
     { key: "privateData", title: "개인정보 수집 및 이용", required: true, link: "https://notion-api.splitbee.io/v1/page/fb2eabb07ec94ff1b4fa923c24d71e44" }, 
-    { key: "marketing", title: "마켓팅 정보 수신동의", required: false, link: "https://notion-api.splitbee.io/v1/page/6a1c618a1119411bae3bc6ec310e456e" }, 
+    { key: "marketing", title: "마케팅 정보 수신동의", required: false, link: "https://notion-api.splitbee.io/v1/page/6a1c618a1119411bae3bc6ec310e456e" }, 
 ];
  
 const Section = styled.section`
