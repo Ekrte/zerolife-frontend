@@ -1,11 +1,11 @@
-import { Calendar, CalendarCheck, CalendarX } from "phosphor-react";
+import { CalendarCheck, CalendarX, Medal } from "phosphor-react";
 import { ReactNode } from "react";
 import styled from "styled-components";
 
-export type MissionStatusType = "TOTAL" | "COMPLETED" | "UNCOMPLETED";
+export type MissionCardType = "REWARD" | "COMPLETED" | "REMAIN";
 
 interface MissionCardProps {
-	type: MissionStatusType;
+	type: MissionCardType;
 	text: string;
 	number: number;
 }
@@ -46,10 +46,10 @@ const ItemContainer = styled.div`
 	padding: 12px 0px 8px 0px;
 `;
 
-const MissionIcon: Record<MissionStatusType, ReactNode> = {
+const MissionIcon: Record<MissionCardType, ReactNode> = {
 	COMPLETED: <CalendarCheck size={28} />,
-	TOTAL: <Calendar size={28} />,
-	UNCOMPLETED: <CalendarX size={28} />,
+	REMAIN: <CalendarX size={28} />,
+	REWARD: <Medal size={28} />,
 };
 
 function MissionStatusCard({ type, number, text }: MissionCardProps) {

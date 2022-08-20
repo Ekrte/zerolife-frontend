@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import MissionCard, { MissionStatusType } from "./MissionStatusCard";
+import MissionCard, { MissionCardType } from "./MissionStatusCard";
 
 const SectionContainer = styled.section`
 	padding: 24px 16px 24px 16px;
@@ -29,7 +29,7 @@ interface MissionStatusSectionProps {
 
 function MissionStatusSection(props: MissionStatusSectionProps) {
 
-	const MissionLinks: { name: MissionStatusType; text: string, count: number }[] =
+	const MissionLinks: { name: MissionCardType; text: string, count: number }[] =
 	[
 		{
 			name: "COMPLETED",
@@ -37,13 +37,13 @@ function MissionStatusSection(props: MissionStatusSectionProps) {
 			count: props.completedMissionsCount,
 		},
 		{
-			name: "UNCOMPLETED",
-			text: "미완료 미션",
+			name: "REMAIN",
+			text: "남은 미션",
 			count: props.leftMissionsCount,
 		},
 		{
-			name: "TOTAL",
-			text: "총 미션",
+			name: "REWARD",
+			text: "내 리워드",
 			count: props.achievedRewardsCount,
 		},
 	];
