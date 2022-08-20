@@ -98,11 +98,13 @@ function MyPage() {
 	const signOut = () => {
 		axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/apis/users`)
 			.then(() => {
-				localStorage.removeItem('user');
 				location.assign('/splash')
 			})
 			.catch((err) => {
 				alert("회원 탈퇴에 실패하였습니다. 서버 연결을 확인하세요.");
+			})
+			.finally(() => {
+				localStorage.removeItem('user');
 			})
 	}
 	
