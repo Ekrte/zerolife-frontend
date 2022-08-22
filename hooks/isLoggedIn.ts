@@ -5,7 +5,7 @@ const isLoggedIn = async () => {
 	const user = localStorage.getItem('user');
 	
 	if(user) {
-		const { id, accessToken } = JSON.parse(user);
+		const { id, email, accessToken } = JSON.parse(user);
 		axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 		return id;
 	} else {
