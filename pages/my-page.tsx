@@ -143,6 +143,7 @@ function MyPage() {
 			</AvatarSection>
 			{myInfo && <MissionStatusSection 
 				{...myInfo?.missionState}
+				state={state}
 			/>}
 			<Section>
 				<Link href="/complete-missions">참여한 인증 보기</Link>

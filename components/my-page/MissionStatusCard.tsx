@@ -8,6 +8,7 @@ interface MissionCardProps {
 	type: MissionCardType;
 	text: string;
 	number: number;
+	link: string;
 }
 
 const Text = styled.div`
@@ -52,9 +53,9 @@ const MissionIcon: Record<MissionCardType, ReactNode> = {
 	REWARD: <Medal size={28} />,
 };
 
-function MissionStatusCard({ type, number, text }: MissionCardProps) {
+function MissionStatusCard({ type, number, text, link }: MissionCardProps) {
 	return (
-		<MissionCardContainer>
+		<MissionCardContainer onClick={() => location.assign(link)}>
 			<ItemContainer>
 				{MissionIcon[type]}
 				<TextContainer>

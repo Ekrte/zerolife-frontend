@@ -24,26 +24,30 @@ const SectionTitle = styled.div`
 interface MissionStatusSectionProps {
 	completedMissionsCount: number,
 	leftMissionsCount: number,
-	achievedRewardsCount: number
+	achievedRewardsCount: number,
+	state: number,
 } 
 
 function MissionStatusSection(props: MissionStatusSectionProps) {
 
-	const MissionLinks: { name: MissionCardType; text: string, count: number }[] =
+	const MissionLinks: { name: MissionCardType; text: string, link: string, count: number }[] =
 	[
 		{
 			name: "COMPLETED",
 			text: "완료 미션",
+			link: "/complete-missions",
 			count: props.completedMissionsCount,
 		},
 		{
 			name: "REMAIN",
 			text: "남은 미션",
+			link: `/my-rewards?state=${props.state}`,
 			count: props.leftMissionsCount,
 		},
 		{
 			name: "REWARD",
 			text: "내 리워드",
+			link: "/agreement",
 			count: props.achievedRewardsCount,
 		},
 	];
@@ -58,6 +62,7 @@ function MissionStatusSection(props: MissionStatusSectionProps) {
 						type={missionLink.name}
 						text={missionLink.text}
 						number={missionLink.count}
+						link={missionLink.link}
 					/>
 				))}
 			</MissionCardContainer>
