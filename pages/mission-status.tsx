@@ -4,7 +4,7 @@ import DefaultLayout from "../layouts";
 import ReactDOM from "react-dom";
 import isLoggedIn from "../hooks/isLoggedIn";
 import { forwardRef, useEffect, useRef, useState } from "react";
-import getMissionProgress, { MissionInfo } from "../apis/getMissionProgress";
+import getMissionProgress, { MissionInfoProps } from "../apis/getMissionProgress";
 import MissionGroup from "../components/mission-progress/MissionGroup";
 import { CaretUp } from "phosphor-react";
 
@@ -166,7 +166,7 @@ const ContinueImage = (props: { handleClick: any }) => {
 }
 
 function MissionStatus() {
-	const [ missionProgress, setMissionProgress ] = useState<MissionInfo[][]>([]);
+	const [ missionProgress, setMissionProgress ] = useState<MissionInfoProps[][]>([]);
 	const rootTopRef = useRef<HTMLDivElement>(null);
 	const contentTopRef = useRef<HTMLDivElement>(null);
 	const bottomRef = useRef<HTMLDivElement>(null);
