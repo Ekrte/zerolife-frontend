@@ -47,7 +47,7 @@ const LoginView = styled.div`
             flex: 1;
         }
 
-        .login-button {
+        .form-footer {
             margin-top: auto;
         }
     }
@@ -184,7 +184,7 @@ const LoginPage: NextPage = () => {
                                     value={values.password}
                                     {...less}
                                 />
-                                <div>
+                                <div className="form-footer">
                                     <Button 
                                         type="submit"
                                         className="login-button"
