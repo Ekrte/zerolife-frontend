@@ -1,18 +1,19 @@
 import axios, { AxiosResponse } from "axios";
 
-const BACKEND_URL = "http://118.67.128.237";
+export type MissionType = "RECYCLE" | "REDUCE" | "REFUSE" | "RETHINK" | "REUSE";
 
-export interface MissionInfo {
+export interface MissionInfoProps {
 	missionProgressId: number, 
 	missionTitle: string,
+	missionCategory: MissionType,
 	progressOrder: number,
 	isCompleted: boolean
 }
 
-const getMissionProgress = (callbackFn: (missions: MissionInfo[]) => void) => {
+const getMissionProgress = (callbackFn: (missions: MissionInfoProps[]) => void) => {
     axios
 		.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/apis/mission-progress`)
-		.then((response: AxiosResponse<MissionInfo[]>) => callbackFn(response.data))
+		.then((response: AxiosResponse<MissionInfoProps[]>) => callbackFn(response.data))
 		.catch((err) => {
 			console.error(err);
 		})

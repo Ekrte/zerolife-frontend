@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Image from "next/image";
-import { MissionInfo } from "../../apis/getMissionProgress";
+import { MissionType } from "../../apis/getMissionProgress";
 
 const MissionItemWrapper = styled.div<{ reverse: boolean, isCompleted: boolean }>`
 	display: flex;
@@ -30,8 +30,10 @@ const MissionItemWrapper = styled.div<{ reverse: boolean, isCompleted: boolean }
 	}
 `;
 
-const MissionItem = (props: { id: number, title: string, index: number, isCompleted: boolean}) => {
-	const { id, title, index, isCompleted } = props;
+
+
+const MissionItem = (props: { id: number, title: string, index: number, category: MissionType, isCompleted: boolean}) => {
+	const { id, title, index, category, isCompleted } = props;
 	return (
 		<MissionItemWrapper 
 			reverse={index % 2 === 1}
@@ -40,7 +42,7 @@ const MissionItem = (props: { id: number, title: string, index: number, isComple
 			<Image
 				width={70}
 				height={70}
-				src={`/image/today/defaultIcon.svg`}
+				src={category ? `/image/today/${category.toLowerCase()}-${isCompleted ? "completed" : "progress"}.svg` : `/image/today/defaultIcon.svg`}
 				alt={"mission-icon"}
 				className="mission-icon"
 			/>
