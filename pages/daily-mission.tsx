@@ -218,7 +218,6 @@ declare global {
 
 
 function MyPage() {
-	isLoggedIn();
 	const [ showMissionModal, setShowMissionModal ] = useState(false);
 	const [ showRewardModal, setShowRewardModal ] = useState(false);
 	const [ challengeCompleted, setChallengeCompleted ] = useState(false);

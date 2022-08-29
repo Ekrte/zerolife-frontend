@@ -36,7 +36,6 @@ const EmptyMissionElement = () => (
 );
 
 function CompleteMissions() {
-	isLoggedIn();
 	const [ missions, setMissions ] = useState<MissionType[]>([]);
 
 	useEffect(() => {

@@ -14,13 +14,11 @@ export interface RewardType {
 	}
 }
 
-const getMyInfo = async (callbackFn: (rewards: RewardType) => void) => 
+const getMyInfo = async (callbackFn: (rewards: RewardType) => void, errorHandleFn?: (err: any) => void) => 
     axios
 		.get(`${BACKEND_URL}/apis/users/mypage`)
 		.then((response) => callbackFn(response.data))
-		.catch((err) => {
-			console.error(err);
-		})
+		.catch(errorHandleFn)
 ;
 
 export default getMyInfo;

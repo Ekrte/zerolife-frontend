@@ -98,7 +98,6 @@ const SignOutModalContent = styled.div`
 
 function MyPage() {
 	//apis/users/achieved-rewards
-	isLoggedIn();
 	const theme = useTheme();
 	const email = typeof window === 'undefined' ? undefined : JSON.parse(localStorage.getItem('user') ?? "{}")?.email;
 	const [ state, setState ] = useState(0);

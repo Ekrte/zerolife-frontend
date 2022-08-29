@@ -174,7 +174,6 @@ function MissionStatus() {
 	useEffect(() => {
 		async function initPage() {
 			try {
-				await isLoggedIn();
 				await new Promise(resolve => setTimeout(resolve, 500));
 			} finally {
 				getMissionProgress((data) => {
