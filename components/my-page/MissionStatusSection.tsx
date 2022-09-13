@@ -41,13 +41,13 @@ function MissionStatusSection(props: MissionStatusSectionProps) {
 		{
 			name: "REMAIN",
 			text: "남은 미션",
-			link: `/my-rewards?state=${props.state}`,
+			link: `/mission-status`,
 			count: props.leftMissionsCount,
 		},
 		{
 			name: "REWARD",
 			text: "내 리워드",
-			link: "/agreement",
+			link: `/my-rewards?state=${props.state}`,
 			count: props.achievedRewardsCount,
 		},
 	];
