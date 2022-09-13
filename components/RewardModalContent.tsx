@@ -124,7 +124,7 @@ function RewardModal(props: { rewardId: number, challengeCompleted?: boolean }) 
             <Button 
                 color={"white"}
                 background={theme.colors.secondary20}
-                onClick={() => location.assign(`/my-rewards?animate=${isExpired ? 0 : 1}&state=${rewardId}`)}
+                onClick={() => location.assign(`/my-rewards?animate=${isExpired ? 0 : 1}&state=${rewardId - 1}`)}
             >
                 {challengeCompleted ? '내 최종 리워드 보러가기' : '리워드 받기'}
             </Button>
