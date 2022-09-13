@@ -198,7 +198,7 @@ const MissionProgressCard = (props: any) => {
 					/>
 					<div className="mission-upload-button">
 						{mission.missionProgress.isCompleted 
-							? `${mission.daysOfProgress}일차 미션을 기다려주세요`
+							? `${mission.daysOfProgress + 1}일차 미션을 기다려주세요`
 							: "미션 인증하기"
 						}
 					</div>
