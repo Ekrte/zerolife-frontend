@@ -7,7 +7,7 @@ interface MyRewardsProps {
     animate?: number;
 }
 
-const Container = styled.div<{ show: boolean }>`
+const Container = styled.div<{ show?: boolean }>`
 	display: flex;
     position: relative;
     flex-direction: column;
@@ -31,58 +31,54 @@ const Container = styled.div<{ show: boolean }>`
     }
 
 
-    .prev {
+    .current {
         opacity: 1;
     }
 
-    .current {
+    .next {
         opacity: 0;
     }
 
     ${props => props.show && `
-        .prev, .current {
+        .next, .current {
             -webkit-transition: opacity 3s ease-in-out;
             -moz-transition: opacity 3s ease-in-out;
             -o-transition: opacity 3s ease-in-out;
             transition: opacity 3s ease-in-out;
         }
 
-        .prev {
+        .current {
             opacity: 0;
         }
 
-        .current {
+        .next {
             opacity: 1;
         }
     `}
 `;
 
 function MyRewardsSection({ state, animate }: MyRewardsProps) {
-    const [ show, setShow ] = useState<boolean>(!animate);
-
-    useEffect(() => {
-        setShow(!animate);
-    }, [animate]);
+    const [ show, setShow ] = useState<boolean>(false);
 
     useEffect(() => {
         async function delayAnimation() {
             try {
               await new Promise(resolve => setTimeout(resolve, 500));
             } finally {
-                setShow(true);
+                setShow(!!animate);
             }
           }
           delayAnimation();
-    }, []);
+    }, [animate]);
     
 	return (
         <Container show={show}>
-            <div className="image-container prev">
-                {animate && <Image src={`/image/rewards/${state - 1}.png`} alt="prev" layout='fill' />}
-            </div>
             <div className="image-container current">
-                <Image src={`/image/rewards/${state}.png`} alt="current" layout='fill' />
+                <Image src={`/image/rewards/${animate ? state - 1 : state}.png`} alt="current" layout='fill' />
             </div>
+            {animate && <div className="image-container next">
+                <Image src={`/image/rewards/${state}.png`} alt="next" layout='fill' />
+            </div>}
         </Container>
 	);
 }

@@ -85,7 +85,7 @@ function RewardModal(props: { rewardId: number, challengeCompleted?: boolean }) 
             // 리워드 획득이 아닌 60일 만료로 엔딩 모달이 뜬 경우,
             // 현재 획득한 가장 마지막 reward를 가져온다.
             getMyRewards((data) => {
-                const lastRewardState = data.filter(e => e.isAchieved).reduce((a, b) => a.id > b.id ? a : b)
+                const lastRewardState = data.filter(e => e.isAchieved).reduce((a, b) => (a.id > b.id) ? a : b)
                 setRewardId(lastRewardState.id);
             });
         }
@@ -124,7 +124,7 @@ function RewardModal(props: { rewardId: number, challengeCompleted?: boolean }) 
             <Button 
                 color={"white"}
                 background={theme.colors.secondary20}
-                onClick={() => location.assign(`/my-rewards?animate=${isExpired ? 0 : 1}&state=${rewardId - 1}`)}
+                onClick={() => location.assign(`/my-rewards?animate=${isExpired ? 0 : 1}&state=${rewardId}`)}
             >
                 {challengeCompleted ? '내 최종 리워드 보러가기' : '리워드 받기'}
             </Button>

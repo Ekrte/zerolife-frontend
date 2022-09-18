@@ -5,7 +5,7 @@ import DefaultLayout from "../layouts";
 import Image from "next/image";
 import moment from "moment";
 import Modal from "../components/Modal";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import MissionCheckModalContent from "../components/daily-mission/MissionCheckModalContent";
 import getDailyMission from "../apis/getDailyMission";
 import RewardModalContent from "../components/RewardModalContent";
@@ -237,12 +237,22 @@ function MyPage() {
 	const [ remainingTime, setRemainingTime ] = useState("");
 	const [ missionIconPath, setMissionIconPath ] = useState("/image/today/defaultIcon.svg");
 
-	const handleChallengeEnd = () => {
+	const handleChallengeEnd = useCallback(() => {
 		setChallengeCompleted(true);
 		setShowRewardModal(true);
-	}
+	}, [setChallengeCompleted, setShowRewardModal]);
 
-	const updateRemainingTime = () => {
+	const getMissionCallback = useCallback((mission: any) => {
+		setMission(mission);
+		setMissionIconPath(`/image/today/${mission.mission.category.toLowerCase()}-${mission.missionProgress.isCompleted ? "completed" : "progress"}.svg`);
+	}, [setMission, setMissionIconPath]);
+
+	const onBackMissionModal= useCallback(() => {
+		setShowMissionModal(false);
+		setEncodedImage("");
+	}, [setShowMissionModal, setEncodedImage]);
+
+	const updateRemainingTime = useCallback(() => {
 		const remainingTime = moment().endOf("day").diff(moment());
 		const duration = moment.duration(remainingTime);
 		if(duration.as('millisecond') <= 1000) {
@@ -252,21 +262,9 @@ function MyPage() {
 		const minutes = duration.minutes().toString().padStart(2, '0');
 		const formatted = `${hours}:${minutes}`; 
 		setRemainingTime(formatted);
-	}
+	}, [handleChallengeEnd, getMissionCallback]);
 
-	const onBackMissionModal= () => {
-		setShowMissionModal(false);
-		setEncodedImage("");
-	}
-
-	const getMissionCallback = (mission: any) => {
-		setMission(mission);
-		setMissionIconPath(`/image/today/${mission.mission.category.toLowerCase()}-${mission.missionProgress.isCompleted ? "completed" : "progress"}.svg`);
-	};
-
-	
-	
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if(challengeCompleted) return;
 		getDailyMission(getMissionCallback, setChallengeCompleted);
 		updateRemainingTime();
@@ -291,12 +289,10 @@ function MyPage() {
 				window.removeEventListener("message", listener);
 			}
 		}
-	}, [challengeCompleted]);
+	}, [challengeCompleted, updateRemainingTime, getMissionCallback]);
 
-	useEffect(() => {
-		if(rewardId === 10) {
-			setChallengeCompleted(true)
-		};
+	useLayoutEffect(() => {
+		if(rewardId === 10) setChallengeCompleted(true);
 	}, [rewardId])
 
 	const sendCaptureRequest = () => {
