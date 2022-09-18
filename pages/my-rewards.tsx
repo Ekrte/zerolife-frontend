@@ -16,8 +16,8 @@ function MyRewards() {
 				/>
 			</StickyHeader>
 			<MyRewardsSection 
-				animate={parseInt(animate as string)} 
-				state={parseInt(state as string)} 
+				animate={parseInt((animate ?? 0) as string)}
+				state={parseInt((state ?? 0) as string)} 
 			/>
 		</PageContainer>
 	);

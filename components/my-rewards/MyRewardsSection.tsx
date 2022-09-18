@@ -57,15 +57,17 @@ const Container = styled.div<{ show?: boolean }>`
     `}
 `;
 
-function MyRewardsSection({ state, animate }: MyRewardsProps) {
+function MyRewardsSection(props: MyRewardsProps) {
     const [ show, setShow ] = useState<boolean>(false);
+    const { state } = props;
+    const animate = !!props.animate;
 
     useEffect(() => {
         async function delayAnimation() {
             try {
               await new Promise(resolve => setTimeout(resolve, 500));
             } finally {
-                setShow(!!animate);
+                setShow(animate);
             }
           }
           delayAnimation();
