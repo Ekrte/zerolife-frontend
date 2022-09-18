@@ -1,11 +1,11 @@
 import { BackHeader, StickyHeader } from "../layouts/header";
 import { PageContainer } from "../layouts";
 import Image from "next/image";
-import isLoggedIn from "../hooks/isLoggedIn";
 import { useEffect, useState } from "react";
 import CompleteMissionSection, { MissionType } from "../components/complete-missions/CompleteMissionSection";
 import getCompleteMissions from "../apis/getCompleteMissions";
 import styled from "styled-components";
+import Spinner from "../components/Spinner";
 
 const EmptyMissionSection = styled.div`
 	height: 100%;
@@ -37,12 +37,16 @@ const EmptyMissionElement = () => (
 
 function CompleteMissions() {
 	const [ missions, setMissions ] = useState<MissionType[]>([]);
+	const [ isLoading, setIsLoading ] = useState<boolean>(true);
 
 	useEffect(() => {
 		getCompleteMissions((data: any) => {
-			setMissions(data)
+			setMissions(data);
+			setIsLoading(false);
 		});
 	}, []);
+
+	if(isLoading) return <Spinner />
 
 	return (
 		<PageContainer>
