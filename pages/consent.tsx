@@ -41,6 +41,7 @@ const Consent: NextPage = () => {
     const [agreementList, setAgreementList] = useState<string[]>([]);
     const [backendErrors, setBackendErrors] = useState({});
     const theme = useTheme();
+    const isSignUpDisabled = !agreementItems.every(item => !item.required || agreementList.includes(item.key))
     
 	return (
         <PageContainer className="page-container">
@@ -155,9 +156,9 @@ const Consent: NextPage = () => {
                                 </div>
                                 <div className="sign-up-footer">
                                     <Button 
-                                        disabled={!agreementItems.every(item => !item.required || agreementList.includes(item.key))}
+                                        disabled={isSignUpDisabled}
                                         className="consent-sign-up-button"
-                                        color={theme.colors.gray80}
+                                        color={isSignUpDisabled ? theme.colors.white : theme.colors.gray80}
                                         background={theme.colors.secondary20}
                                         onClick={handleSubmit}
                                     >
