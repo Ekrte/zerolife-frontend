@@ -7,6 +7,7 @@ import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider } from "styled-components";
 import { defaultTheme } from "../styles/theme";
 import AuthenticatedSession from "../components/AuthenticatedSession";
+import "@fontsource/noto-sans-kr";
 
 const exceptPaths = ['/login', '/splash', '/consent', '/agreeement'];
 

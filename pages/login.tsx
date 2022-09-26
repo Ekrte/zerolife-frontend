@@ -67,7 +67,6 @@ const LoginView = styled.div`
             font-size: 32px;
             font-weight: 700;
             margin-bottom: 21px;
-            -webkit-text-stroke: 1px black;
         }
         
         .login-message-description {
