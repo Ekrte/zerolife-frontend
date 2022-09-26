@@ -3,13 +3,12 @@ import Image from "next/image";
 import SwipeableViews from "react-swipeable-views";
 import styled from "styled-components";
 import classNames from "classnames";
+import splash1 from "../public/image/splash/splash1.png";
+import splash2 from "../public/image/splash/splash2.png";
+import splash3 from "../public/image/splash/splash3.png";
+import splash4 from "../public/image/splash/splash4.png";
 
-const imagePaths = [
-	"/image/splash/splash1.png",
-	"/image/splash/splash2.png",
-	"/image/splash/splash3.png",
-	"/image/splash/splash4.png",
-];
+const imagePaths = [ splash1, splash2, splash3, splash4 ];
 
 const messages = [
 	`깨끗한 지구를 만들기 위해\n제로라이프에 오신 것을 환영해요!`,
@@ -95,14 +94,14 @@ function SwipeView(props: {
 				enableMouseEvents
 			>
 				{imagePaths.map((imagePath, index) => (
-					<div className="splash-swipe-view" key={imagePath}>
+					<div className="splash-swipe-view" key={`splash-image-${index}`}>
 						<div className="splash-image-wrapper">
 							{Math.abs(activeStep - index) <= 2 ? (
 								<Image
 									height={300}
 									width={300}
 									src={imagePath}
-									alt={imagePath}
+									alt={`splash-image-${index}`}
 								/>
 							) : null}
 						</div>

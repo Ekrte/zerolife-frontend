@@ -4,11 +4,11 @@ import Image from 'next/image';
 import { Formik, Form } from "formik";
 import LabeledInput from "../components/LabeledInput";
 import * as Yup from "yup";
-import axios from "axios";
-import DefaultLayout, { PageContainer } from "../layouts";
+import { PageContainer } from "../layouts";
 import getAccessToken from "../apis/getAccessToken";
 import { useState } from "react";
 import Button from "../components/Button";
+import LoginImg from "../public/image/login/login1.png"
 
 const LoginSchema = Yup.object().shape({
     email: Yup.string()
@@ -106,7 +106,7 @@ const LoginPage: NextPage = () => {
                     <Image
                         height={200}
                         width={200}
-                        src={'/image/login/login1.png'}
+                        src={LoginImg}
                         alt={'/image/login/login1.png'}
                     />
                 </div>
