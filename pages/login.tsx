@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import styled, { useTheme } from "styled-components";
+import styled, { css, useTheme } from "styled-components";
 import Image from 'next/image';
 import { Formik, Form } from "formik";
 import LabeledInput from "../components/LabeledInput";
@@ -8,6 +8,7 @@ import axios from "axios";
 import DefaultLayout, { PageContainer } from "../layouts";
 import getAccessToken from "../apis/getAccessToken";
 import { useState } from "react";
+import Button from "../components/Button";
 
 const LoginSchema = Yup.object().shape({
     email: Yup.string()
@@ -85,11 +86,6 @@ const LoginView = styled.div`
         flex-direction: column;
         margin-top: 18px;
         gap: 18px;
-
-        .signup-button {
-            color: white;
-            background: ${props => props.theme.colors.gray50};
-        }
     }
 `;
 
@@ -98,24 +94,6 @@ const Divider = styled.div`
     height: 1px;
     background: ${props => props.theme.colors.gray50};
 `
-
-const Button = styled.button`
-	display: flex;
-    width: 100%;
-    height: 48px;
-	align-items: center;
-	justify-content: center;
-	font-family: 'Noto Sans KR', sans-serif;
-	font-weight: 700;
-	font-size: 14px;
-    padding: 8px 24px;
-	border-radius: 5px;
-    outline: none;
-    border: none;
-	color: ${props => props.theme.colors.gray80};
-	background: ${props => props.theme.colors.secondary20};
-`;
-
 
 const LoginPage: NextPage = () => {
     const [backendErrors, setBackendErrors] = useState({});
@@ -186,6 +164,8 @@ const LoginPage: NextPage = () => {
                                 <div className="form-footer">
                                     <Button 
                                         type="submit"
+                                        color={theme.colors.gray80} 
+                                        background={theme.colors.secondary20}
                                         className="login-button"
                                         onClick={handleSubmit}
                                     >
@@ -199,7 +179,9 @@ const LoginPage: NextPage = () => {
                     </Formik>
                     <div className="login-footer">
                         <Divider/>
-                        <Button 
+                        <Button
+                            color={theme.colors.white} 
+                            background={theme.colors.gray50}
                             className="signup-button"
                             onClick={(e) => {
                                 location.assign('/consent');

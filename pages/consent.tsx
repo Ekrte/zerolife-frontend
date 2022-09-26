@@ -89,16 +89,6 @@ const Consent: NextPage = () => {
                         }}
                     >
                     {(props: any) => {
-                        // const {
-                        //     values,
-                        //     errors,
-                        //     touched,
-                        //     handleChange,
-                        //     handleBlur,
-                        //     handleSubmit,
-                        //     isSubmitting,
-                        // } = props;
-
                         const { values, errors, handleSubmit, ...less } = props;
 
                         return (
@@ -167,7 +157,7 @@ const Consent: NextPage = () => {
                                     <Button 
                                         disabled={!agreementItems.every(item => !item.required || agreementList.includes(item.key))}
                                         className="consent-sign-up-button"
-                                        color={theme.colors.white}
+                                        color={theme.colors.gray80}
                                         background={theme.colors.secondary20}
                                         onClick={handleSubmit}
                                     >

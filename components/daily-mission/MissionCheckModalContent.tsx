@@ -115,7 +115,7 @@ function MissionCheckModalContent({ missionProgressId, encodedImage, sendCapture
 			</div>
 			<div className="mission-actions">
 				<Button onClick={sendCaptureRequest} background={theme.colors.gray40}>재촬영</Button>
-				<Button onClick={sendMissionCheck} background={theme.colors.secondary20}>인증 완료</Button>
+				<Button onClick={sendMissionCheck} color={theme.colors.gray80} background={theme.colors.secondary20}>인증 완료</Button>
 			</div>
 		</Content>
 	);

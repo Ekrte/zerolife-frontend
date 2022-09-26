@@ -122,7 +122,7 @@ function RewardModal(props: { rewardId: number, challengeCompleted?: boolean }) 
                 </div>
             </CompleteRewardContent>}
             <Button 
-                color={"white"}
+                color={theme.colors.gray80}
                 background={theme.colors.secondary20}
                 onClick={() => location.assign(`/my-rewards?animate=${isExpired ? 0 : 1}&state=${rewardId}`)}
             >
