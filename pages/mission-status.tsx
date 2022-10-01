@@ -1,8 +1,8 @@
-import styled, { useTheme } from "styled-components";
-import { Header, StickyHeader } from "../layouts/header";
+import type { NextPage, GetServerSideProps } from "next";
+import styled from "styled-components";
+import { Header } from "../layouts/header";
 import DefaultLayout from "../layouts";
 import ReactDOM from "react-dom";
-import isLoggedIn from "../hooks/isLoggedIn";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import getMissionProgress, { MissionInfoProps } from "../apis/getMissionProgress";
 import MissionGroup from "../components/mission-progress/MissionGroup";
@@ -165,7 +165,7 @@ const ContinueImage = (props: { handleClick: any }) => {
 	);
 }
 
-function MissionStatus() {
+const MissionStatus: NextPage = () => {
 	const [ missionProgress, setMissionProgress ] = useState<MissionInfoProps[][]>([]);
 	const rootTopRef = useRef<HTMLDivElement>(null);
 	const contentTopRef = useRef<HTMLDivElement>(null);
@@ -222,6 +222,12 @@ function MissionStatus() {
 			</Content>
 		</DefaultLayout>
 	);
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    return {
+        props: {},
+    }
 }
 
 export default MissionStatus;

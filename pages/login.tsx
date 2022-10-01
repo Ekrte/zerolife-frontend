@@ -1,5 +1,5 @@
-import type { NextPage } from "next";
-import styled, { css, useTheme } from "styled-components";
+import type { NextPage, GetServerSideProps } from "next";
+import styled, { useTheme } from "styled-components";
 import Image from 'next/image';
 import { Formik, Form } from "formik";
 import LabeledInput from "../components/LabeledInput";
@@ -195,5 +195,11 @@ const LoginPage: NextPage = () => {
         </PageContainer>
     )
 };
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    return {
+        props: {},
+    }
+}
 
 export default LoginPage;

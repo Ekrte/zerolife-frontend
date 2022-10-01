@@ -1,3 +1,4 @@
+import type { GetServerSideProps } from "next";
 import { BackHeader, StickyHeader } from "../layouts/header";
 import { PageContainer } from "../layouts";
 import MyRewardsSection from "../components/my-rewards/MyRewardsSection";
@@ -21,6 +22,12 @@ function MyRewards() {
 			/>
 		</PageContainer>
 	);
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    return {
+        props: {},
+    }
 }
 
 export default MyRewards;

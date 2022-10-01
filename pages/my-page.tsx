@@ -1,12 +1,11 @@
+import type { GetServerSideProps } from "next";
 import Image from "next/image";
-import { ShareNetwork } from "phosphor-react";
 import styled, { useTheme } from "styled-components";
 import { Header, StickyHeader } from "../layouts/header";
 import DefaultLayout from "../layouts";
 import AvatarImage from "../public/avatar.svg";
 import Link from "next/link";
 import MissionStatusSection from "../components/my-page/MissionStatusSection";
-import isLoggedIn from "../hooks/isLoggedIn";
 import { useEffect, useState } from "react";
 import getMyRewards from "../apis/getMyRewards";
 import getMyInfo, { RewardType } from "../apis/getMyInfo";
@@ -203,6 +202,12 @@ function MyPage() {
 			
 		</DefaultLayout>
 	);
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    return {
+        props: {},
+    }
 }
 
 export default MyPage;

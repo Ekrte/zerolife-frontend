@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { NextPage, GetServerSideProps } from "next";
 import * as React from 'react';
 import styled from "styled-components";
 import Button from "../components/Button";
@@ -31,5 +31,11 @@ const SplashPage: NextPage = () => {
 		</PageContainer>
 	)
 };
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    return {
+        props: {},
+    }
+}
 
 export default SplashPage;

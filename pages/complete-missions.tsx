@@ -1,3 +1,4 @@
+import type { GetServerSideProps } from "next";
 import { BackHeader, StickyHeader } from "../layouts/header";
 import { PageContainer } from "../layouts";
 import Image from "next/image";
@@ -65,6 +66,12 @@ function CompleteMissions() {
 			}
 		</PageContainer>
 	);
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    return {
+        props: {},
+    }
 }
 
 export default CompleteMissions;

@@ -1,6 +1,6 @@
-import type { NextPage } from "next";
-import styled, { useTheme } from "styled-components";
-import { useEffect, useState } from "react";
+import type { NextPage, GetServerSideProps } from "next";
+import { useTheme } from "styled-components";
+import { useState } from "react";
 import Button from "../components/Button";
 import CheckboxMessage from "../components/consent/CheckboxMessage";
 import { PageContainer } from "../layouts";
@@ -175,5 +175,11 @@ const Consent: NextPage = () => {
         </PageContainer>
     )
 };
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    return {
+        props: {}
+    }
+}
 
 export default Consent;

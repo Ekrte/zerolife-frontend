@@ -1,15 +1,14 @@
-/* eslint-disable @next/next/no-img-element */
-import styled, { useTheme } from "styled-components";
+import type { GetServerSideProps } from "next";
+import styled from "styled-components";
 import { Header, StickyHeader } from "../layouts/header";
 import DefaultLayout from "../layouts";
 import Image from "next/image";
 import moment from "moment";
 import Modal from "../components/Modal";
-import { useCallback, useEffect, useLayoutEffect, useState } from "react";
+import { useCallback, useLayoutEffect, useState } from "react";
 import MissionCheckModalContent from "../components/daily-mission/MissionCheckModalContent";
 import getDailyMission from "../apis/getDailyMission";
 import RewardModalContent from "../components/RewardModalContent";
-import isLoggedIn from "../hooks/isLoggedIn";
 import checkNewRewords from "../apis/checkNewRewords";
 
 const Title = styled.div`
@@ -362,6 +361,12 @@ function MyPage() {
 			</Modal>
 		</DefaultLayout>
 	);
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    return {
+        props: {},
+    }
 }
 
 export default MyPage;
