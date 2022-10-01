@@ -54,7 +54,6 @@ const Content = styled.div`
 			font-size: 16px;
 			line-height: 24px;
 			height: auto;
-			font-weight: 400;
 
 			&:first-of-type {
 				margin-right: 12px;
