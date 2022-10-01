@@ -1,8 +1,13 @@
 import type { NextPage } from "next";
 import * as React from 'react';
+import styled from "styled-components";
 import Button from "../components/Button";
 import SwipeView from "../components/SwipeView";
 import { PageContainer } from "../layouts";
+
+const Footer = styled.div`
+	padding: 24px 16px;
+`
 
 
 const SplashPage: NextPage = () => {
@@ -16,10 +21,13 @@ const SplashPage: NextPage = () => {
 				setActiveStep={setActiveStep}
 				maxSteps={maxSteps}
 			/>
-			{ activeStep + 1 === maxSteps 
-				? <Button onClick={() => location.assign("/login")}>시작하기</Button>
-				: <Button onClick={() => setActiveStep(prev => prev + 1)}>다음</Button>
-			}
+			<Footer>
+				{ activeStep + 1 === maxSteps 
+					? <Button onClick={() => location.assign("/login")}>시작하기</Button>
+					: <Button onClick={() => setActiveStep(prev => prev + 1)}>다음</Button>
+				}
+			</Footer>
+			
 		</PageContainer>
 	)
 };
