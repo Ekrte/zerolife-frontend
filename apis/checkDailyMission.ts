@@ -1,15 +1,13 @@
 import axios from "axios";
 
-function DataURIToBlob(dataURI: string) {
-	const splitDataURI = dataURI.split(',')
-	const byteString = splitDataURI[0].indexOf('base64') >= 0 ? atob(splitDataURI[1]) : decodeURI(splitDataURI[1])
-	const mimeString = splitDataURI[0].split(':')[1].split(';')[0]
-
+function base64ToBlob(encodedImage: string) {
+	const byteString = atob(encodedImage);
+	
 	const ia = new Uint8Array(byteString.length)
 	for (let i = 0; i < byteString.length; i++)
 		ia[i] = byteString.charCodeAt(i)
 
-	return new Blob([ia], { type: mimeString });
+	return new Blob([ia], { type: 'image/jpeg' });
 }
 
 interface checkDailyMissionProps {
@@ -17,9 +15,9 @@ interface checkDailyMissionProps {
 }
 
 const checkDailyMission: checkDailyMissionProps = (missionProgressId, encodedImage, evaluation) => {
-	const binaryImageFile = DataURIToBlob(encodedImage);
+	const binaryImageFile = base64ToBlob(encodedImage);
 	const formData = new FormData();
-	formData.append("proofImageUrl", binaryImageFile);
+	formData.append("proofImage", binaryImageFile);
 	formData.append("evaluation", evaluation);
 
 	return axios

@@ -51,7 +51,6 @@ const Content = styled.div`
 			margin: 0px;
 			padding-top: 8px;
 			padding-bottom: 8px;
-			color: white;
 			font-size: 16px;
 			line-height: 24px;
 			height: auto;
@@ -114,7 +113,7 @@ function MissionCheckModalContent({ missionProgressId, encodedImage, sendCapture
 				))}
 			</div>
 			<div className="mission-actions">
-				<Button onClick={sendCaptureRequest} background={theme.colors.gray40}>재촬영</Button>
+				<Button onClick={sendCaptureRequest} color={theme.colors.white} background={theme.colors.gray40}>재촬영</Button>
 				<Button onClick={sendMissionCheck} color={theme.colors.gray80} background={theme.colors.secondary20}>인증 완료</Button>
 			</div>
 		</Content>

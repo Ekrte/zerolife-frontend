@@ -82,9 +82,9 @@ const MissionCardContainer = styled.div`
 
 
 function CompleteMissionCard(props: MissionType) {
-    const { missionProgressId, missionTitle, progressOrder, proofImageUrl: encodedImage, evaluation, completedAt } = props;
+    const { missionProgressId, missionTitle, progressOrder, proofImageUrl, evaluation, completedAt } = props;
 	const theme = useTheme();
-	const [ imagePath, setImagePath ] = useState(`data:image/jpeg;base64,${encodedImage}`);
+	const [ imagePath, setImagePath ] = useState(proofImageUrl);
 	const [ imageSize, setImageSize ] = useState("256px");
 
 	const difficutiyIcons: { [key: string]: ReactNode } = {
