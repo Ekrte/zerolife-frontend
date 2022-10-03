@@ -99,16 +99,11 @@ function MyPage() {
 	//apis/users/achieved-rewards
 	const theme = useTheme();
 	const email = typeof window === 'undefined' ? undefined : JSON.parse(localStorage.getItem('user') ?? "{}")?.email;
-	const [ state, setState ] = useState(0);
 	const [ myInfo, setMyInfo ] = useState<RewardType | undefined>();
 	const [ showModal, setShowModal ] = useState(false);
 	const [ modalInfo, setModalInfo ] = useState<{ type?: "logOut" | "signOut",title?: string, message?: string, buttonLabel?: string }>({});
 
 	useEffect(() => {
-		getMyRewards((data) => {
-			const lastRewardState = data.filter(e => e.isAchieved).reduce((a, b) => a.id > b.id ? a : b)
-			setState(lastRewardState ? lastRewardState.id - 1 : 0);
-		});
 		getMyInfo((data) => setMyInfo(data));
 	}, []);
 
@@ -141,13 +136,12 @@ function MyPage() {
 			</AvatarSection>
 			{myInfo && <MissionStatusSection 
 				{...myInfo?.missionState}
-				state={state}
 			/>}
 			<Section>
 				<Link href="/complete-missions">참여한 인증 보기</Link>
 			</Section>
 			<Section>
-				<Link href={`/my-rewards?state=${state}`}>내 리워드 보기</Link>
+				<Link href={`/my-rewards?state=${myInfo?.missionState?.achievedRewardsCount ?? 0}`}>내 리워드 보기</Link>
 			</Section>
 			<Section>
 				<Link href={`/agreement`}>이용약관 및 개인정보처리방침</Link>

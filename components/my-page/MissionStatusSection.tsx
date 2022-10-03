@@ -25,10 +25,10 @@ interface MissionStatusSectionProps {
 	completedMissionsCount: number,
 	leftMissionsCount: number,
 	achievedRewardsCount: number,
-	state: number,
 } 
 
 function MissionStatusSection(props: MissionStatusSectionProps) {
+	const { completedMissionsCount, leftMissionsCount, achievedRewardsCount } = props;
 
 	const MissionLinks: { name: MissionCardType; text: string, link: string, count: number }[] =
 	[
@@ -36,19 +36,19 @@ function MissionStatusSection(props: MissionStatusSectionProps) {
 			name: "COMPLETED",
 			text: "완료 미션",
 			link: "/complete-missions",
-			count: props.completedMissionsCount,
+			count: completedMissionsCount,
 		},
 		{
 			name: "REMAIN",
 			text: "남은 미션",
 			link: `/mission-status`,
-			count: props.leftMissionsCount,
+			count: leftMissionsCount,
 		},
 		{
 			name: "REWARD",
 			text: "내 리워드",
-			link: `/my-rewards?state=${props.state}`,
-			count: props.achievedRewardsCount,
+			link: `/my-rewards?state=${achievedRewardsCount}`,
+			count: achievedRewardsCount,
 		},
 	];
 

@@ -340,9 +340,9 @@ function MyPage() {
 							getDailyMission(getMissionCallback, handleChallengeEnd);
 							const data = await checkNewRewords();
 							if(data?.length > 0) {
-								const rewardId = data[0]?.achievedRewardId;
+								const rewardId = data[0]?.rewardRequirement / 6;
 								// rewardId가 기본적으로 2부터 시작
-								setRewardId(rewardId ? rewardId - 1 : 0);
+								setRewardId(rewardId ?? 0);
 								setShowRewardModal(true);
 							}
 						}}
