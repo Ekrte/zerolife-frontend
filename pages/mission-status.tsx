@@ -154,7 +154,7 @@ const ContinueImage = (props: { handleClick: any }) => {
 					className="mission-continue" 
 					onClick={props.handleClick}
 				>
-					<span>comming soon</span>
+					<span>coming soon</span>
 					<div className="scroll-up-button">
 						<CaretUp size={16} weight="bold"/>
 					</div>
