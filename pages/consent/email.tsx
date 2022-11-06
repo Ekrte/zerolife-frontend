@@ -1,19 +1,19 @@
 import type { NextPage, GetServerSideProps } from "next";
 import { useTheme } from "styled-components";
 import { useState } from "react";
-import Button from "../components/Button";
-import CheckboxMessage from "../components/consent/CheckboxMessage";
-import { PageContainer } from "../layouts";
+import Button from "../../components/Button";
+import CheckboxMessage from "../../components/consent/CheckboxMessage";
+import { PageContainer } from "../../layouts";
 import { ArrowLeft } from "phosphor-react";
 import { Formik, Form } from "formik";
-import LabeledInput from "../components/LabeledInput";
-import ConsentView from "../components/consent/ConsentView";
+import LabeledInput from "../../components/LabeledInput";
+import ConsentView from "../../components/consent/ConsentView";
 import * as Yup from "yup";
 import axios from "axios";
-import getAccessToken from "../apis/getAccessToken";
+import getAccessToken from "../../apis/getAccessToken";
 
 
-const agreementItems = [
+export const agreementItems = [
     { key: "age", title: "만 14세 이상입니다", required: true }, 
     { key: "service", title: "서비스 이용약관", required: true, link: "https://notion-api.splitbee.io/v1/page/1f72a14f109740bfbd7fb4a99a7eb562" }, 
     { key: "privateData", title: "개인정보 수집 및 이용", required: true, link: "https://notion-api.splitbee.io/v1/page/fb2eabb07ec94ff1b4fa923c24d71e44" }, 

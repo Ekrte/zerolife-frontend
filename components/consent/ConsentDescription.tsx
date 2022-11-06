@@ -1,28 +1,11 @@
 import { createPortal } from "react-dom";
 import styled, { useTheme } from "styled-components";
 import { ArrowLeft } from "phosphor-react";
-import { BlockMapType, NotionRenderer } from "react-notion";
+import { NotionRenderer } from "react-notion";
 import { useEffect, useRef, useState } from "react";
+import PageContainerOverlay from "../../layouts/PageContainerOverlay";
 
-const PageContainerOverlay = styled.div`
-    position: absolute;
-    display: flex;
-	flex-direction: column;
-	box-sizing: border-box;
-    max-width: 100%;
-    min-height: 100vh;
-    max-height: 100%;
-    padding-left: 16px;
-    padding-right: 16px;
-    color: ${props => props.theme.colors.white};
-    background-color: ${(props) => props.theme.colors.background};
-    z-index: 5000;
-
-    @media screen and (min-width: 685px) {
-		margin: 0 auto;
-		width: 650px;
-	}
-
+const DescriptionOverlay = styled(PageContainerOverlay)`
     .description-container {
         display: flex;
         flex-direction: column;
@@ -48,8 +31,6 @@ const PageContainerOverlay = styled.div`
             display: none;
         }
     }
-
-    
 `
 
 const ConsentDescription = (props: { setVisible: Function, title?: string, contents: any }) => {
@@ -66,7 +47,7 @@ const ConsentDescription = (props: { setVisible: Function, title?: string, conte
     if(!container) return <></>;
 
     return createPortal(
-        <PageContainerOverlay>
+        <DescriptionOverlay>
             <div className="description-container">
                 <div className="top" ref={contentTopRef}/>
                 <div className="consent-navigation">
@@ -79,7 +60,7 @@ const ConsentDescription = (props: { setVisible: Function, title?: string, conte
                 </div>
                 <NotionRenderer blockMap={props.contents} />
             </div>
-        </PageContainerOverlay>, container[0]);
+        </DescriptionOverlay>, container[0]);
 };
 
 export default ConsentDescription;

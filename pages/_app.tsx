@@ -9,7 +9,7 @@ import { defaultTheme } from "../styles/theme";
 import AuthenticatedSession from "../components/AuthenticatedSession";
 import "@fontsource/noto-sans-kr";
 
-const exceptPaths = ['/login', '/splash', '/consent', '/agreeement'];
+const exceptPaths = ['/login', '/splash', '/consent/email', '/consent/social', '/agreeement'];
 
 function MyApp({ Component, pageProps, ...appProps }: AppProps) {
 	const [queryClient] = useState(() => new QueryClient());

@@ -31,7 +31,7 @@ app.prepare().then(() => {
     if(user?.jwtToken) {
       res.redirect('/');
     } else {
-      res.redirect('/consent');
+      res.redirect('/consent/social');
     }
   });
   

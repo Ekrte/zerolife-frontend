@@ -11,9 +11,9 @@ module.exports = () => {
             callbackURL: '/auth/kakao/callback', // 카카오 로그인 Redirect URI 경로
          },
          async (accessToken, refreshToken, profile, done) => {
-            //  console.log(profile);
+             console.log(profile);
             const { id, kakao_account } = profile._json;
-            // console.log(`email: ${kakao_account.email}`);
+            console.log(`email: ${kakao_account.email}`);
             try {
             //    const exUser = requestUser();
             //    if (exUser) {

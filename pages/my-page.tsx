@@ -12,6 +12,7 @@ import getMyInfo, { RewardType } from "../apis/getMyInfo";
 import axios from "axios";
 import Modal from "../components/Modal";
 import Button from "../components/Button";
+import GhostButton from "../components/GhostButton";
 
 const Title = styled.div`
 	font-size: 24px;
@@ -60,18 +61,6 @@ const AccountActions = styled.div`
 	gap: 24px;
 `
 
-const GhostButton = styled.button`
-	display: inline-flex;
-	background: transparent;
-	outline: none;
-	border: 0;
-	font-size: 12px;
-	line-height: 1.5;
-	font-weight: 500;
-	padding: 0px;
-	color: ${(props) => props.theme.colors.gray50};
-`
-
 const SignOutModalContent = styled.div`
 	display: flex;
     flex-direction: column;
@@ -109,7 +98,7 @@ function MyPage() {
 
 	const logOut = () => {
 		localStorage.removeItem('user');
-		location.assign('/splash')
+		location.assign('/login')
 	}
 
 	const signOut = () => {

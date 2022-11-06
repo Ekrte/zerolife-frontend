@@ -9,6 +9,9 @@ import getAccessToken from "../apis/getAccessToken";
 import { useState } from "react";
 import Button from "../components/Button";
 import LoginImg from "../public/image/login/login1.png"
+import KakaoLoginImg from "../public/icon/login/kakao.png"
+import NaverLoginImg from "../public/icon/login/naver.png"
+import GhostButton from "../components/GhostButton";
 
 const LoginSchema = Yup.object().shape({
     email: Yup.string()
@@ -95,6 +98,28 @@ const Divider = styled.div`
     background: ${props => props.theme.colors.gray50};
 `
 
+const SingUpButton = styled(GhostButton)`
+    margin-top: 15px;
+    margin-left: auto;
+`
+
+const KakaoButton = styled(Button)`
+    color: #000000d9;
+    background: #FEE500;
+    .kakao-login-text {
+        margin-left: 4px;
+    }
+`
+
+const NaverButton = styled(Button)`
+    color: #FFFFFF;
+    background: #03C75A;
+    
+    .naver-login-text {
+        margin-left: 0px;
+    }
+`
+
 const LoginPage: NextPage = () => {
     const [backendErrors, setBackendErrors] = useState({});
     const theme = useTheme();
@@ -147,6 +172,7 @@ const LoginPage: NextPage = () => {
                             <Form>
                                 <LabeledInput
                                     type="input"
+                                    hiddenLabel={true}
                                     accessKey="email"
                                     setBackendErrors={setBackendErrors}
                                     errors={{ ...errors, ...backendErrors }}
@@ -155,6 +181,7 @@ const LoginPage: NextPage = () => {
                                 />
                                 <LabeledInput
                                     type="password"
+                                    hiddenLabel={true}
                                     accessKey="password"
                                     setBackendErrors={setBackendErrors}
                                     errors={{ ...errors, ...backendErrors }}
@@ -169,26 +196,53 @@ const LoginPage: NextPage = () => {
                                         className="login-button"
                                         onClick={handleSubmit}
                                     >
-                                        로그인
+                                        이메일 로그인
                                     </Button>
                                 </div>
-                                
                             </Form>
                         );
                     }}
                     </Formik>
+                    <SingUpButton
+                        className="signup-button"
+                        onClick={(e) => {
+                            console.log("click signup!!");
+                            location.assign('/consent/email');
+                        }}
+                    >
+                        {"이메일로 회원가입 하기 >"}
+                    </SingUpButton>
                     <div className="login-footer">
                         <Divider/>
-                        <Button
-                            color={theme.colors.white} 
-                            background={theme.colors.gray50}
-                            className="signup-button"
+                        <KakaoButton
                             onClick={(e) => {
-                                location.assign('/consent');
+                                e.stopPropagation();
+                                console.log("click kako!!!");
+                                location.assign('/auth/kakao')
                             }}
                         >
-                            회원가입
-                        </Button>
+                            <Image
+                                width={28}
+                                height={28}
+                                src={KakaoLoginImg}
+                                alt={'/image/icon/kakao.png'}
+                            />
+                            <span className="kakao-login-text">카카오 로그인</span>
+                        </KakaoButton>
+                        <NaverButton
+                            onClick={(e) => { 
+                                console.log('click naver'); 
+                                // location.assign('/consent')
+                            }}
+                        >
+                            <Image
+                                width={32}
+                                height={32}
+                                src={NaverLoginImg}
+                                alt={'/image/icon/naver.png'}
+                            />
+                            <span className="naver-login-text">네이버 로그인</span>
+                        </NaverButton>
                     </div>
                 </div>
             </LoginView>

@@ -11,7 +11,7 @@ const labels: any = {
 
 const placeholders: any = {
     "nickname": "원하시는 닉네임을 입력해주세요",
-    "email": "예시) abc@abc.com",
+    "email": "이메일을 입력해주세요.",
     "password": "비밀번호를 입력해주세요.",
     "passwordConfirm": "비밀번호를 한번 더 입력해주세요"
 }
@@ -73,14 +73,25 @@ const LabeledInputWrapper = styled.div`
 `
 
 const LabeledInput = (props: any) => {
-    const { type, accessKey, handleChange, handleBlur, value, errors, touched, setBackendErrors } = props;
+    const { 
+        hiddenLabel, 
+        label,
+        type, 
+        accessKey, 
+        handleChange, 
+        handleBlur, 
+        value, 
+        errors, 
+        touched, 
+        setBackendErrors 
+    } = props;
 
     return (
         <LabeledInputWrapper>
-            <span className="form-input-label">
-                {labels[accessKey]}
+            {!hiddenLabel && <span className="form-input-label">
+                {label || labels[accessKey]}
                 <span className="form-input-label--required">*</span>
-            </span>
+            </span>}
             <Field
                 type={type}
                 className={classNames("form-input", {"form-input--error": errors[accessKey] && touched[accessKey]})}
