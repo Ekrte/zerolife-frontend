@@ -16,9 +16,14 @@ app.prepare().then(() => {
   server.use(passport.session());
   
   server.get('/auth', (req, res) => {
-    // console.log(req.session);
     const user = req?.session?.passport?.user;
-    return user ? res.json(user) : res.send(401);
+    console.log(req?.session?.passport);
+    console.log(user);
+    return user ? res.json({
+      ...user,
+      jwtToken: undefined,
+      accessToken: user.jwtToken
+    }) : res.send(401);
   });
   
   server.get('/auth/kakao', passport.authenticate('kakao'));
@@ -26,12 +31,15 @@ app.prepare().then(() => {
   server.get('/auth/kakao/callback', passport.authenticate('kakao', {
     failureRedirect: "/",
   }), (req, res)=>{
-    console.log("Login Success!");
     const user = req?.session?.passport?.user;
     if(user?.jwtToken) {
-      res.redirect('/');
+      console.log("Login Success!");
+      console.log("jwtToken exist");
+      res.redirect('/daily-mission');
     } else {
-      res.redirect('/consent/social');
+      const { nickname, provider, email } = user;
+      console.log("need signup");
+      res.redirect(`/consent/social?nickname=${nickname}&provider=${provider}&email=${email}`);
     }
   });
   
@@ -40,6 +48,6 @@ app.prepare().then(() => {
   })
 
   server.listen(port, () => {
-    console.log(`> Ready on http://localhost:${port}`)
+    console.log(`> Ready on http://192.168.0.31:${port}`)
   })
 })

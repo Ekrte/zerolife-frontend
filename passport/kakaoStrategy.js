@@ -1,7 +1,8 @@
 const passport = require('passport');
 const KakaoStrategy = require('passport-kakao').Strategy;
+const axios = require('axios');
+const genPassHash = require('../utils/getPassHash');
 require('dotenv').config();
-// const User = require('../models/user');
  
 module.exports = () => {
    passport.use(
@@ -12,21 +13,36 @@ module.exports = () => {
          },
          async (accessToken, refreshToken, profile, done) => {
              console.log(profile);
-            const { id, kakao_account } = profile._json;
+            const { id, kakao_account, properties } = profile._json;
             console.log(`email: ${kakao_account.email}`);
-            try {
-            //    const exUser = requestUser();
-            //    if (exUser) {
-            //       done(null, exUser);
-            //    } else {
-            //       const newUser = createUser();
-            //       done(null, newUser);
-            //    }
-               done(null, { id: kakao_account.email, jwtToken: undefined });
-            } catch (error) {
-               console.error(error);
-               done(error);
-            }
+
+            axios
+               .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/apis/auth/token`,
+                  { 
+                     email: kakao_account.email, 
+                     password: genPassHash('kakao', kakao_account.email),
+               })
+               .then((response) => {
+                  try {
+                     done(null, { 
+                        email: kakao_account.email, 
+                        provider: 'kakao', 
+                        nickname: properties.nickname,
+                        jwtToken: response.data.accessToken,
+                     });
+                  } catch (error) {
+                     done(error);
+                  }
+               })
+               .catch((error) => {
+                  console.log("ID doesn't exist!!!");
+                  done(null, { 
+                     email: kakao_account.email, 
+                     provider: 'kakao', 
+                     nickname: properties.nickname,
+                  });
+               });
+            
          },
       ),
    );

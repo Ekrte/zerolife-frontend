@@ -5,10 +5,10 @@ import { useEffect, useRef, useState } from "react";
 import PageContainerOverlay from "../../layouts/PageContainerOverlay";
 import CheckboxMessage from "./CheckboxMessage";
 import { agreementItems } from "../../pages/consent/email";
-import sha256 from 'crypto-js/sha256';
 import Button from "../Button";
 import signUpRequest from "../../apis/signUpRequest";
 import ConsentView from "./ConsentView";
+import genPassHash from "../../utils/getPassHash";
 
 interface ISocialConsent {
     setVisible: Function, 
@@ -34,16 +34,12 @@ const SocialConsentOverlay = styled(PageContainerOverlay)`
 const SocialConsent = (props: ISocialConsent) => {
     const theme= useTheme();
     const contentTopRef = useRef<HTMLDivElement>(null);
-    const { email, nickname, provider, setBackendErrors, agreementList, setAgreementList } = props;
+    const { email, nickname, provider, setBackendErrors, setVisible, agreementList, setAgreementList } = props;
     const isSignUpDisabled = !agreementItems.every(item => !item.required || agreementList.includes(item.key));
 
     useEffect(() => {
         contentTopRef?.current?.scrollIntoView({ behavior: "auto" })
     }, [contentTopRef]);
-
-    const genPassHash = (provider: string, email: string) => {
-        return sha256(`zerolife:${provider}:${email}`).slice(0, 16);
-    }
 
     if(typeof window === 'undefined') return <></>;
     const container = document.getElementsByClassName("page-container");
@@ -103,7 +99,10 @@ const SocialConsent = (props: ISocialConsent) => {
                                     email: email,
                                     password: genPassHash(provider, email),
                                     marketingAgreement: agreementList.includes("marketing")
-                                }, setBackendErrors)}
+                                }, (errors: any) => {
+                                    setBackendErrors(Object.values(errors).reduce((a, b) => ({ ...a, "nickname": b}), {}));
+                                    setVisible(false);
+                                })}
                             >
                                 가입하기
                             </Button>

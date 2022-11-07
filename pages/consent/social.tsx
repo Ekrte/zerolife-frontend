@@ -9,6 +9,7 @@ import LabeledInput from "../../components/LabeledInput";
 import ConsentView from "../../components/consent/ConsentView";
 import * as Yup from "yup";
 import SocialConsent from "../../components/consent/SocialConsent";
+import { useRouter } from "next/router";
 
 const SignupSchema = Yup.object().shape({
     nickname: Yup.string()
@@ -19,9 +20,14 @@ const SignupSchema = Yup.object().shape({
 
 const ConsentSocial: NextPage = () => {
     const theme = useTheme();
-    const nickname = "Ekrte"
-    const provider = "kakao";
-    const email = "kdysk93@naver.com";
+    // const nickname = "Ekrte"
+    // const provider = "kakao";
+    // const email = "kdysk93@naver.com";
+    const router = useRouter()
+    console.log(router.query);
+    const { nickname, provider, email } = typeof window === 'undefined'
+        ? { nickname: "", provider: "", email: "" }
+        : router.query;
     const [agreementList, setAgreementList] = useState<string[]>([]);
     const [visibleConsent, setVisibleConsent] = useState(false);
     const [backendErrors, setBackendErrors] = useState({});
@@ -40,7 +46,7 @@ const ConsentSocial: NextPage = () => {
                     >
                     {(props: any) => {
                         const { values, errors, handleSubmit, ...less } = props;
-
+                        console.log(errors);
                         return (
                             <Form>
                                 <LabeledInput
@@ -54,7 +60,8 @@ const ConsentSocial: NextPage = () => {
                                 />
                                 
                                 <div className="sign-up-footer">
-                                    <Button 
+                                    <Button
+                                        disabled={Object.keys(errors).length !== 0}
                                         onClick={() => setVisibleConsent(true)}
                                     >
                                         다음
@@ -62,9 +69,9 @@ const ConsentSocial: NextPage = () => {
                                 </div>
                                 {visibleConsent && <SocialConsent 
                                     setVisible={setVisibleConsent} 
-                                    email={email} 
-                                    nickname={nickname} 
-                                    provider={provider}
+                                    email={email as string} 
+                                    nickname={nickname as string} 
+                                    provider={provider as string}
                                     agreementList={agreementList}
                                     setAgreementList={setAgreementList}
                                     setBackendErrors={setBackendErrors}

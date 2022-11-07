@@ -19,8 +19,12 @@ function MyApp({ Component, pageProps, ...appProps }: AppProps) {
 		<QueryClientProvider client={queryClient}>
 			<Hydrate state={pageProps.dehydratedState}>
 				<ThemeProvider theme={defaultTheme}>
-					{!exceptPaths.includes(currentPath) && <AuthenticatedSession />}
-					<Component {...pageProps} />
+					{!exceptPaths.includes(currentPath) 
+						? (<AuthenticatedSession>
+							<Component {...pageProps} />
+							</AuthenticatedSession>)
+						: <Component {...pageProps} />
+					}
 				</ThemeProvider>
 			</Hydrate>
 		</QueryClientProvider>

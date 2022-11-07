@@ -5,7 +5,7 @@ import DefaultLayout from "../layouts";
 import Image from "next/image";
 import moment from "moment";
 import Modal from "../components/Modal";
-import { useCallback, useLayoutEffect, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import MissionCheckModalContent from "../components/daily-mission/MissionCheckModalContent";
 import getDailyMission from "../apis/getDailyMission";
 import RewardModalContent from "../components/RewardModalContent";
@@ -263,7 +263,7 @@ function MyPage() {
 		setRemainingTime(formatted);
 	}, [handleChallengeEnd, getMissionCallback]);
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		if(challengeCompleted) return;
 		getDailyMission(getMissionCallback, setChallengeCompleted);
 		updateRemainingTime();
@@ -290,7 +290,7 @@ function MyPage() {
 		}
 	}, [challengeCompleted, updateRemainingTime, getMissionCallback]);
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		if(rewardId === 10) setChallengeCompleted(true);
 	}, [rewardId])
 
