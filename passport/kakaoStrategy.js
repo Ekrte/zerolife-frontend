@@ -19,14 +19,15 @@ module.exports = () => {
             axios
                .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/apis/auth/token`,
                   { 
+                     provider: "KAKAO",
                      email: kakao_account.email, 
-                     password: genPassHash('kakao', kakao_account.email),
+                     password: genPassHash('KAKAO', kakao_account.email),
                })
                .then((response) => {
                   try {
                      done(null, { 
                         email: kakao_account.email, 
-                        provider: 'kakao', 
+                        provider: 'KAKAO', 
                         nickname: properties.nickname,
                         jwtToken: response.data.accessToken,
                      });
@@ -38,7 +39,7 @@ module.exports = () => {
                   console.log("ID doesn't exist!!!");
                   done(null, { 
                      email: kakao_account.email, 
-                     provider: 'kakao', 
+                     provider: 'KAKAO',
                      nickname: properties.nickname,
                   });
                });

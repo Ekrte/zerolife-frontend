@@ -2,6 +2,7 @@ import axios from 'axios';
 import getAccessToken from './getAccessToken';
 
 interface ISignUpRequest {
+    provider: string,
     nickname: string, 
     email: string, 
     password: string, 
@@ -14,7 +15,7 @@ const signUpRequest = async (values: ISignUpRequest, failureCallback: any) => {
     return await axios
         .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/apis/users`, values)
         .then(async (response: any) => {
-            await getAccessToken(email, password);
+            await getAccessToken(values.provider, email, password);
             location.assign('/daily-mission');
         })
         .catch((err) => {

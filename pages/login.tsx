@@ -147,7 +147,7 @@ const LoginPage: NextPage = () => {
                         validationSchema={LoginSchema}
                         onSubmit={async (values, { setSubmitting }) => {
                             console.log("onSUbmit!!!");
-                            await getAccessToken(values.email, values.password)
+                            await getAccessToken("ZEROLIFE", values.email, values.password)
                                 .then(() => location.assign('/daily-mission'))
                             	.catch((err) => {
                                     const error = err?.response?.data?.error;

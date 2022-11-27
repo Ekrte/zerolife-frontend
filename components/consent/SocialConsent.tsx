@@ -95,6 +95,7 @@ const SocialConsent = (props: ISocialConsent) => {
                                 color={isSignUpDisabled ? theme.colors.white : theme.colors.gray80}
                                 background={theme.colors.secondary20}
                                 onClick={() => signUpRequest({ 
+                                    provider: provider,
                                     nickname: nickname,
                                     email: email,
                                     password: genPassHash(provider, email),

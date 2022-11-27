@@ -61,11 +61,12 @@ const Consent: NextPage = () => {
                             	.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/apis/users`, 
                             		{ 
                             			...values,
+                                        provider: "ZEROLIFE",
                                         passwordConfirm: undefined,
                             			marketingAgreement: agreementList.includes("marketing")
                             		})
                             	.then(async (response: any) => {
-                                    await getAccessToken(values.email, values.password);
+                                    await getAccessToken("ZEROLIFE", values.email, values.password);
                                     location.assign('/daily-mission');
                                 })
                             	.catch((err) => {

@@ -20,9 +20,6 @@ const SignupSchema = Yup.object().shape({
 
 const ConsentSocial: NextPage = () => {
     const theme = useTheme();
-    // const nickname = "Ekrte"
-    // const provider = "kakao";
-    // const email = "kdysk93@naver.com";
     const router = useRouter()
     console.log(router.query);
     const { nickname, provider, email } = typeof window === 'undefined'
@@ -70,7 +67,7 @@ const ConsentSocial: NextPage = () => {
                                 {visibleConsent && <SocialConsent 
                                     setVisible={setVisibleConsent} 
                                     email={email as string} 
-                                    nickname={nickname as string} 
+                                    nickname={values.nickname as string} 
                                     provider={provider as string}
                                     agreementList={agreementList}
                                     setAgreementList={setAgreementList}
