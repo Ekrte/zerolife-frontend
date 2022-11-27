@@ -624,6 +624,11 @@ balanced-match@^1.0.0:
   resolved "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz"
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
 
+base64url@3.x.x:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/base64url/-/base64url-3.0.1.tgz#6399d572e2bc3f90a9a8b22d5dbb0a32d33f788d"
+  integrity sha512-ir1UPr3dkwexU7FdV8qBBbNDRUhMmIekYMFZfi+C/sLNnRESKPl23nB9b2pltqfOQNnGzsDdId90AEtG5tCx4A==
+
 big-integer@^1.6.16:
   version "1.6.51"
   resolved "https://registry.npmjs.org/big-integer/-/big-integer-1.6.51.tgz"
@@ -2274,6 +2279,24 @@ passport-kakao@^1.0.1:
     passport-oauth2 "~1.1.2"
     pkginfo "~0.3.0"
 
+passport-naver-v2@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/passport-naver-v2/-/passport-naver-v2-2.0.8.tgz#db552aec4aa843bef7c18a10e871dc4431c1f918"
+  integrity sha512-CA0u+aA4K4Zf5e3dSd47agOS69ULOdBGei7CZY2BN1cEbLnhnc6OalFPvnXLuEKT8I4IuGwvh3EBZCST2FoI+A==
+  dependencies:
+    passport-oauth2 "^1.5.0"
+
+passport-oauth2@^1.5.0:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/passport-oauth2/-/passport-oauth2-1.6.1.tgz#c5aee8f849ce8bd436c7f81d904a3cd1666f181b"
+  integrity sha512-ZbV43Hq9d/SBSYQ22GOiglFsjsD1YY/qdiptA+8ej+9C1dL1TVB+mBE5kDH/D4AJo50+2i8f4bx0vg4/yDDZCQ==
+  dependencies:
+    base64url "3.x.x"
+    oauth "0.9.x"
+    passport-strategy "1.x.x"
+    uid2 "0.0.x"
+    utils-merge "1.x.x"
+
 passport-oauth2@~1.1.2:
   version "1.1.2"
   resolved "https://registry.npmjs.org/passport-oauth2/-/passport-oauth2-1.1.2.tgz"
@@ -3031,7 +3054,7 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
-utils-merge@1.0.1, utils-merge@^1.0.1:
+utils-merge@1.0.1, utils-merge@1.x.x, utils-merge@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/utils-merge/-/utils-merge-1.0.1.tgz"
   integrity sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==

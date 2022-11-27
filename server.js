@@ -33,12 +33,23 @@ app.prepare().then(() => {
   }), (req, res)=>{
     const user = req?.session?.passport?.user;
     if(user?.jwtToken) {
-      console.log("Login Success!");
-      console.log("jwtToken exist");
       res.redirect('/daily-mission');
     } else {
       const { nickname, provider, email } = user;
-      console.log("need signup");
+      res.redirect(`/consent/social?nickname=${nickname}&provider=${provider}&email=${email}`);
+    }
+  });
+
+  server.get('/auth/naver', passport.authenticate('naver', { authType: 'reprompt' }));
+
+  server.get('/auth/naver/callback', passport.authenticate('naver', {
+    failureRedirect: "/",
+  }), (req, res)=>{
+    const user = req?.session?.passport?.user;
+    if(user?.jwtToken) {
+      res.redirect('/daily-mission');
+    } else {
+      const { nickname, provider, email } = user;
       res.redirect(`/consent/social?nickname=${nickname}&provider=${provider}&email=${email}`);
     }
   });

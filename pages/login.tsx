@@ -217,7 +217,6 @@ const LoginPage: NextPage = () => {
                         <KakaoButton
                             onClick={(e) => {
                                 e.stopPropagation();
-                                console.log("click kako!!!");
                                 location.assign('/auth/kakao')
                             }}
                         >
@@ -232,7 +231,7 @@ const LoginPage: NextPage = () => {
                         <NaverButton
                             onClick={(e) => { 
                                 console.log('click naver'); 
-                                // location.assign('/consent')
+                                location.assign('/auth/naver')
                             }}
                         >
                             <Image

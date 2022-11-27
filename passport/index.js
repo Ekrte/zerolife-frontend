@@ -1,5 +1,6 @@
 const passport = require('passport');
 const kakao = require('./kakaoStrategy');
+const naver = require('./naverStrategy');
  
 module.exports = () => {
     passport.serializeUser((user, done) => {
@@ -11,4 +12,5 @@ module.exports = () => {
     });
 
     kakao();
+    naver();
 };
